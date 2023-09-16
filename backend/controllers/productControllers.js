@@ -1,26 +1,37 @@
-const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
-const mongoose = require("mongoose");
-const catchHandler = require("../middleware/catchAsyncErrors");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+
+const Product = require("../models/productModel");
+const ApiFeatures = require("../utils/apifeatures");
 
 //Create Product -- Admin
-exports.createProduct = catchHandler(async (req, res, next) => {
+exports.createProduct = catchAsyncErrors(async (req, res, next) => {
+  req.body.user = req.user.id;
   const product = await Product.create(req.body);
+
   res.status(201).json({
     success: true,
     product,
   });
 });
 
-exports.getAllProducts = catchHandler(async (req, res) => {
-  const products = await Product.find();
+exports.getAllProducts = catchAsyncErrors(async (req, res) => {
+  const resultPerPage = 5;
+  const productCount = await Product.countDocuments();
+
+  const apiFeature = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination(resultPerPage);
+  const products = await apiFeature.query;
   res.status(200).json({
     success: true,
     products,
+    productCount,
   });
 });
 
-exports.productDetails = catchHandler(async (req, res, next) => {
+exports.productDetails = catchAsyncErrors(async (req, res, next) => {
   const id = req.params.id;
 
   let product = await Product.findById(id);
@@ -35,7 +46,7 @@ exports.productDetails = catchHandler(async (req, res, next) => {
   });
 });
 
-exports.updateProduct = catchHandler(async (req, res) => {
+exports.updateProduct = catchAsyncErrors(async (req, res) => {
   const id = req.params.id;
 
   const data = req.body;
@@ -59,7 +70,7 @@ exports.updateProduct = catchHandler(async (req, res) => {
   });
 });
 
-exports.deleteProduct = catchHandler(async (req, res, next) => {
+exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
   const id = req.params.id;
   const product = await Product.findById(id);
 
