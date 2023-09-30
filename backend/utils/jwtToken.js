@@ -1,5 +1,6 @@
+const User = require("../models/userModel");
 // creating token and saving in cookie
-const sendToken = (user, statusCode, res) => {
+const sendToken = async (user, statusCode, res) => {
   const token = user.getJWTToken();
 
   //options for cookie

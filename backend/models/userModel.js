@@ -48,6 +48,7 @@ userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
+
   this.password = await bcrypt.hash(this.password, 10);
 });
 
@@ -74,7 +75,7 @@ userSchema.methods.getResetPasswordToken = function () {
 
   // Hashing adding to userSchema
 
-  this.resetPassword = crypto
+  this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");

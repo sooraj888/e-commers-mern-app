@@ -9,14 +9,25 @@ module.exports = (err, req, res, next) => {
     err = new ErrorHandler(message, 400);
   }
 
-  if (err.name === "MongoServerError") {
-    // console.log(err.keyValue.email);
-    const message = `User with Email ${err.keyValue.email} already exists`;
+  if (err.code === 11000) {
+    const message = `Duplicate ${Object.keys(err?.keyValue)} Entered`;
+    err = new ErrorHandler(message, 400);
+  }
+
+  //JWT Invalid token error
+  if (err.name === "JsonWebTokenError") {
+    const message = "Json web token is invalid, try again";
+    err = new ErrorHandler(message, 400);
+  }
+
+  // JWT Expire Error
+  if (err.name === "JsonWebTokenExpireError") {
+    const message = "Json web token is Expire, try again";
     err = new ErrorHandler(message, 400);
   }
 
   res.status(err.statusCode).json({
     success: false,
-    error: err.stack,
+    error: err.message,
   });
 };
