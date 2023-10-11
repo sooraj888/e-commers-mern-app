@@ -146,7 +146,7 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
   sendToken(user, 200, res);
 });
 
-//! ------------------------ Update Password With Old Password -----------------------------
+//! ------------------------ Update Profile -----------------------------
 
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   const newUserData = { name: req.body.name, email: req.body.email };
@@ -187,7 +187,7 @@ exports.updateRole = catchAsyncErrors(async (req, res, next) => {
 exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
-    return next(new ErrorHandler("User dos't exist"));
+    return next(new ErrorHandler("User dos't exist", 404));
   }
 
   await user.remove();
