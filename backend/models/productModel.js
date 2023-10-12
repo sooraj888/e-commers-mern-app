@@ -17,6 +17,7 @@ const productSchema = new mongoose.Schema({
   ratings: {
     type: Number,
     default: 0,
+    max: 5,
   },
 
   image: [
@@ -47,6 +48,11 @@ const productSchema = new mongoose.Schema({
   },
   reviews: [
     {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
+      },
       name: {
         type: String,
         required: true,
@@ -54,9 +60,10 @@ const productSchema = new mongoose.Schema({
       rating: {
         type: Number,
         required: true,
+        max: 5,
       },
       comment: {
-        type: Number,
+        type: String,
         required: true,
       },
     },
@@ -65,11 +72,11 @@ const productSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: "User",
-    required: true,
-  },
+  // user: {
+  //   type: mongoose.Schema.ObjectId,
+  //   ref: "User",
+  //   required: true,
+  // },
 });
 
 const Product = mongoose.model("Product", productSchema);

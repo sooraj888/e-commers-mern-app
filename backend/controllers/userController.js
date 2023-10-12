@@ -190,6 +190,6 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("User dos't exist", 404));
   }
 
-  await user.remove();
+  await User.findByIdAndDelete(req.params.id);
   res.status(200).json({ success: true });
 });
