@@ -6,7 +6,6 @@ const orderSchema = new mongoose.Schema({
     city: { type: String, required: true },
     state: { type: String, required: true },
     country: { type: String, required: true },
-    address: { type: String, required: true },
     pinCode: {
       type: Number,
       required: true,
@@ -23,14 +22,14 @@ const orderSchema = new mongoose.Schema({
       quantity: { type: Number, required: true },
       image: { type: String, required: true },
       product: {
-        type: mongoose.Schema.objectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "Product",
       },
     },
   ],
   user: {
-    type: mongoose.Schema.objectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "User",
   },
@@ -48,4 +47,5 @@ const orderSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Order", orderSchema);
+const Order = mongoose.model("Order", orderSchema);
+module.exports = Order;
