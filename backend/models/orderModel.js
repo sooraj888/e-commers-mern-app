@@ -15,7 +15,7 @@ const orderSchema = new mongoose.Schema({
       required: true,
     },
   },
-  orderItem: [
+  orderItems: [
     {
       name: { type: String, required: true },
       place: { type: String, required: true },
