@@ -20,6 +20,7 @@ export default function Header() {
         link2Url="product"
         link3Url="contact"
         link4Url="about"
+        navColor1="white"
         nav1alignItems="center"
         nav1FlexDirection="row"
         nav1justifyContent="flex-start"

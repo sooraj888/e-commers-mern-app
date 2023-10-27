@@ -16,3 +16,7 @@ declare module "overlay-navbar" {
 
   export class ReactNavbar extends React.Component<any> {}
 }
+
+declare module "react-rating-stars-component" {
+  export default any;
+}
