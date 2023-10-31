@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 // import {CgMouse} from "react-icons/all"
 import "./Home.css";
 import Product from "./Product";
+import Title from "../Header/Title";
 export default function Home() {
   const product = {
     name: "Blue Tshirt",
@@ -15,6 +16,7 @@ export default function Home() {
   };
   return (
     <Fragment>
+      <Title>E-Commerce</Title>
       <div className="banner">
         <p>Welcome to E-commerce</p>
         <h1>Find Amazing Product Below</h1>

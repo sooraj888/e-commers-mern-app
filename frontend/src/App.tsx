@@ -5,6 +5,8 @@ import "./App.css";
 import WebFont from "webfontloader";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 export default function App() {
   useEffect(() => {
@@ -21,12 +23,14 @@ export default function App() {
     });
   }, []);
   return (
-    <Fragment>
-      <Header />
-      <Routes>
-        <Route path="/" Component={Home}></Route>
-      </Routes>
-      <Footer />
-    </Fragment>
+    <Provider store={store}>
+      <Fragment>
+        <Header />
+        <Routes>
+          <Route path="/" Component={Home}></Route>
+        </Routes>
+        <Footer />
+      </Fragment>
+    </Provider>
   );
 }
