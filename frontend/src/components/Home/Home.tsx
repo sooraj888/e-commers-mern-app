@@ -4,8 +4,8 @@ import "./Home.css";
 import Product from "./Product";
 import Title from "../Header/Title";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../../redux/features/counter/counterSlice";
 import { useNavigate, useNavigation } from "react-router-dom";
+import { getAllProducts } from "../../redux/product/productSlice";
 export default function Home() {
   const product = {
     name: "Blue Tshirt",
@@ -17,7 +17,7 @@ export default function Home() {
     price: "₹400",
     _id: 1,
   };
-  const counter = useSelector((state: any) => state.counter);
+  const data = useSelector((state: any) => state.products);
   const dispatch = useDispatch<any>();
   const navigate = useNavigate();
   return (
@@ -28,14 +28,13 @@ export default function Home() {
           Welcome to{" "}
           <button
             onClick={() => {
-              dispatch(getPosts({ id: "1", navigate }));
+              dispatch(getAllProducts({ dispatch }));
               // navigate("/product");
             }}
           >
             E-commerce
           </button>
-          {JSON.stringify(counter.loading)}
-          {JSON.stringify(counter.entities)}
+          {JSON.stringify(data)}
         </p>
         <h1>Find Amazing Product Below </h1>
         <a href="#container">
@@ -44,16 +43,9 @@ export default function Home() {
       </div>
       <h2 className="homeHeading">Featured Product</h2>
       <div className={"container"} id={"container"}>
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
+        {data?.products?.map((item: any) => {
+          return <Product product={item} key={item._id} />;
+        })}
       </div>
     </Fragment>
   );

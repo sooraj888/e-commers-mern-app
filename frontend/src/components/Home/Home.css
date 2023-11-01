@@ -80,6 +80,7 @@
 
 .productCard {
   width: 16vmax;
+
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -87,13 +88,14 @@
   margin: 2vmax;
   transition: all 0.75s;
   padding-bottom: 0.5vmax;
-  background-color: rgb(255, 255, 255);
+  background: rgb(242, 238, 234);
   /* padding: 1vmax; */
 }
 
 .productCard > img {
   width: 12vmax;
   margin: auto;
+  min-height: 20vmax;
   /* height: 20vmax; */
 }
 .productCard > div {

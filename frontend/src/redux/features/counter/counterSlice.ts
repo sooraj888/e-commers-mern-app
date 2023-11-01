@@ -3,14 +3,15 @@ import axios from "axios";
 
 export const getPosts = createAsyncThunk(
   "posts/getPosts",
-  async ({ id, navigate }: any) => {
+  async ({ id, navigate, dispatch }: any) => {
     const res = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${id}`
     ).then((data) => data.json());
+    dispatch(increment());
     if (!res) {
       navigate("/product");
     }
-    return res;
+    return res.data;
   }
 );
 
