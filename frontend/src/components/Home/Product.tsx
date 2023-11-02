@@ -15,11 +15,11 @@ export default function Product({ product }: { product: any }) {
     <Link className="productCard" to={product?._id}>
       <img src={product?.image[0]?.url} alt={product?.name}></img>
       <p>{product?.name}</p>
-      <div>
+      <div className="rating">
         <ReactStars {...options} value={product?.ratings} />
         <span>{`(${product?.numOfReviews || 0} Reviews)`}</span>
       </div>
-      <span>{product?.price}</span>
+      <span> &#8377;{`${Number(product?.price) || "----"}`}</span>
     </Link>
   );
 }

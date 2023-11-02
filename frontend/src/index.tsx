@@ -10,10 +10,17 @@ import { BrowserRouter as Router } from "react-router-dom";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+const options = {
+  timeout: 5000,
+  position: positions.BOTTOM_CENTER,
+  transition: transitions.SCALE,
+};
 root.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <AlertProvider template={AlertTemplate} {...options}>
+        <App />
+      </AlertProvider>
     </Router>
   </React.StrictMode>
 );
