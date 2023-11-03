@@ -12,8 +12,15 @@ export default function Product({ product }: { product: any }) {
   };
 
   return (
-    <Link className="productCard" to={product?._id}>
-      <img src={product?.image[0]?.url} alt={product?.name}></img>
+    <Link className="productCard" to={`product/${product?._id}`}>
+      <img
+        src={
+          String(product?.image[0]?.url).startsWith("http")
+            ? product?.image[0]?.url
+            : ""
+        }
+        alt={product?.name}
+      ></img>
       <p>{product?.name}</p>
       <div className="rating">
         <ReactStars {...options} value={product?.ratings} />

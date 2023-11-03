@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { BrowserRouter as Router } from "react-router-dom";
-
+import { Helmet, HelmetProvider } from "react-helmet-async";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -19,7 +19,9 @@ root.render(
   <React.StrictMode>
     <Router>
       <AlertProvider template={AlertTemplate} {...options}>
-        <App />
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
       </AlertProvider>
     </Router>
   </React.StrictMode>

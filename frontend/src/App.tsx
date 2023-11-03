@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import DetailsPage from "./components/ProductDetails/ProductDetailsPage";
 
 export default function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" Component={Home}></Route>
+          <Route path="/product/:id" Component={DetailsPage}></Route>
         </Routes>
         <Footer />
       </Fragment>

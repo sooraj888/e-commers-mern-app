@@ -1,12 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./features/counter/counterSlice";
 import { composeWithDevTools } from "redux-devtools-extension";
 import ProductReducer from "./product/productSlice";
-
+import productDetails from "./product/productDetailsSlice";
 export default configureStore({
   reducer: {
-    counter: counterReducer,
     products: ProductReducer,
+    productDetails,
     composeWithDevTools,
   },
   middleware: (getDefaultMiddleware) =>

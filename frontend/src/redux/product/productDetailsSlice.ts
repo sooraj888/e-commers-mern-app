@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getAllProducts = createAsyncThunk(
-  "products/getAllProducts",
-  async ({}: any, { rejectWithValue }) => {
+export const getProductDetails = createAsyncThunk(
+  "productDetails/getProductDetails",
+  async (
+    { productId, navigation }: { productId: string; navigation: any },
+    { rejectWithValue }
+  ) => {
+    console.log(productId);
     const res = await axios
-      .get(`/api/v1/products/`)
+      .get(`/api/v1/products/${productId}`)
       .then((e) => e)
       .catch((e) => {
         return rejectWithValue(e.response);
@@ -14,30 +18,28 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
-export const counterSlice = createSlice({
-  name: "products",
+export const productDetailsSlice = createSlice({
+  name: "productDetails",
   initialState: {
-    productCount: 0,
     loading: false,
     error: false,
     errorMessage: "",
-    products: [],
+    product: {},
   },
 
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllProducts.pending, (state) => {
+      .addCase(getProductDetails.pending, (state) => {
         state.loading = true;
         state.errorMessage = "";
         state.error = false;
       })
-      .addCase(getAllProducts.fulfilled, (state, { payload: { data } }) => {
+      .addCase(getProductDetails.fulfilled, (state, { payload: { data } }) => {
         state.loading = false;
-        state.productCount = data?.productCount;
-        state.products = data?.products;
+        state.product = data?.product;
       })
-      .addCase(getAllProducts.rejected.type, (state, action: any) => {
+      .addCase(getProductDetails.rejected, (state, action: any) => {
         state.loading = false;
         state.errorMessage =
           action?.payload?.data?.error ||
@@ -48,4 +50,5 @@ export const counterSlice = createSlice({
   },
 });
 
-export default counterSlice.reducer;
+const productDetails = productDetailsSlice.reducer;
+export default productDetails;

@@ -14,14 +14,14 @@ export default function Home() {
     (state: any) => state.products
   );
   const dispatch = useDispatch<any>();
-  const navigate = useNavigate();
   const bottomAlert = useAlert();
+
   useEffect((): any => {
     if (error) {
-      return bottomAlert.error("dfs");
+      return bottomAlert.error(errorMessage);
     }
     dispatch(getAllProducts({}));
-  }, [dispatch, error]);
+  }, [dispatch, error, bottomAlert]);
 
   return (
     <Fragment>
