@@ -12,7 +12,7 @@ process.on("uncaughtException", (err) => {
 });
 
 //Config
-const connectDataBase = require("./config/database");
+const connectDataBase = require("./backend/config/database");
 
 //Connect to database
 connectDataBase();

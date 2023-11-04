@@ -30,6 +30,7 @@ export default function App() {
         <Routes>
           <Route path="/" Component={Home}></Route>
           <Route path="/product/:id" Component={DetailsPage}></Route>
+          <Route path="*" Component={() => <>Not found</>}></Route>
         </Routes>
         <Footer />
       </Fragment>

@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": false,
-  "proxy": "https://e-commerce-server-render.onrender.com/",
+  "proxy": "https://e-commerce-server-render.onrender.com",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
