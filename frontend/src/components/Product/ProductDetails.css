@@ -1,0 +1,233 @@
+.productDetails {
+  display: flex;
+  padding: 10vmax;
+  padding-top: 2vmax;
+  padding-bottom: 0vmax;
+  overflow: hidden;
+}
+.carouselContainer {
+  min-width: 28vmax;
+  width: 28vmax;
+  transition: all 1s;
+}
+.carouselContainer:hover {
+  transform: translateY(-0.5vmax);
+  box-shadow: 2px 2px 10px rgb(167, 166, 166);
+}
+
+.details {
+  flex: 1;
+  padding: 8vmax;
+  padding-top: 4vmax;
+}
+
+.block-2,
+.block-4 {
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  justify-content: left;
+}
+
+.block-2,
+.block-4 {
+  border-top: 1px solid rgb(202, 200, 200);
+  padding: 1vmax 0px;
+  border-bottom: 1px solid rgb(202, 200, 200);
+}
+.block-1 > h2 {
+  font-family: "Roboto";
+}
+
+.block-1 > h6 {
+  font-family: "Roboto";
+  color: gray;
+}
+
+.block-2 > h5 {
+  padding-left: 0.5vmax;
+}
+.block-3 {
+  font-family: "Roboto";
+  font-size: 1.1vmax;
+  padding: 1vmax 0px;
+}
+
+.block-3-1 {
+  justify-content: left;
+  align-items: center;
+  display: flex;
+  padding: 0.5vmax 0px;
+}
+.block-3-1-1 {
+  margin-right: 1vmax;
+  background-color: white;
+  justify-content: left;
+  align-items: center;
+  display: flex;
+}
+.block-3-1-1 > input {
+  width: 2.5vmax;
+  height: 1.8vmax;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  padding: 0px 0.2vmax;
+  background-color: rgb(255, 255, 255);
+}
+.block-3-1-1 > button {
+  background: rgb(97, 95, 95);
+  width: 1.8vmax;
+  height: 2vmax;
+  color: white;
+  border-radius: 2px;
+  font-size: 1.5vmax;
+}
+.block-3-1-1 > button:hover {
+  background: rgb(62, 60, 60);
+  border-color: rgb(191, 183, 183);
+}
+.block-3-1-2 > button,
+.block-7 > button {
+  background: rgb(239, 136, 63);
+  padding: 0.5vmax;
+  padding-left: 2vmax;
+  padding-right: 2vmax;
+  border-radius: 20px;
+  color: white;
+  border-width: 1px;
+  border-color: white;
+}
+.block-3-1-2 > button:hover,
+.block-7 > button:hover {
+  background: rgb(238, 109, 16);
+  border-color: wheat;
+}
+
+.block-4 > span {
+  font-weight: bold;
+  padding-left: 1vmax;
+}
+.greenColor {
+  color: limegreen;
+}
+.redColor {
+  color: red;
+}
+
+.block-5,
+.block-6 {
+  font-family: "Roboto";
+  font-size: 1.5vmax;
+  padding: 0.6vmax 0px;
+}
+.block-5 > p,
+.block-6 > p {
+  font-size: 1vmax;
+  color: rgb(85, 84, 84);
+  font-weight: lighter;
+}
+
+.block-7 > button {
+  margin: 1vmax 0px;
+  height: 2.6vmax;
+}
+.price > button {
+  color: orangered;
+}
+
+.reviews-h3,
+.no-reviews {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.reviews-h3 {
+  font-family: Roboto;
+}
+.no-reviews {
+  font-size: 1vmax;
+  padding: 0px 1vmax;
+}
+.review {
+  overflow: auto;
+  white-space: nowrap;
+  margin: 0px 5vmax;
+  display: flex;
+}
+
+@media screen and (max-width: 1200px) {
+  .productDetails {
+    padding: 2vmax;
+    padding-top: 2vmax;
+    padding-bottom: 1vmax;
+  }
+  .carouselContainer {
+    min-width: 32vmax;
+    width: 32vmax;
+  }
+
+  .block-3 {
+    font-size: 1.6vmax;
+  }
+  .block-3-1-1 > button {
+    width: 2vmax;
+    height: 3vmax;
+  }
+  .block-3-1-1 > input {
+    width: 3.5vmax;
+  }
+  .block-5 > p,
+  .block-6 > p {
+    font-size: 1.4vmax;
+  }
+  .block-7 > button {
+    height: 4vmax;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .details {
+    padding: 5vmax;
+  }
+  .review {
+    margin: 0px 2vmax;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .productDetails {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .carouselContainer {
+    width: 95vw;
+  }
+  .details {
+    width: 100%;
+    padding-bottom: 0.5vmax;
+  }
+  .block-3 {
+    font-size: 1.6vmax;
+  }
+  .block-3-1-1 > button {
+    width: 3vmax;
+    height: 4vmax;
+  }
+  .block-3-1-1 > input {
+    width: 5vmax;
+  }
+  .block-5 > p,
+  .block-6 > p {
+    font-size: 1.6vmax;
+  }
+  .block-7 {
+    display: flex;
+    justify-content: center;
+  }
+  .block-7 > button {
+    height: 5vmax;
+  }
+}

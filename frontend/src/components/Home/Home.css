@@ -47,7 +47,6 @@
 }
 
 .banner::before {
-  content: "";
   width: 100vw;
   height: 100vmin;
   background-color: white;

@@ -2,3 +2,30 @@
   padding: 0px;
   margin: 0px;
 }
+h1,
+h1,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: lighter;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

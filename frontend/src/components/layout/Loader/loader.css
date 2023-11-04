@@ -1,8 +1,6 @@
 .loading {
   width: 100vw;
   height: 100vh;
-
-  background-color: white;
   display: grid;
   place-items: center;
   /* max-width: 100%; */
@@ -12,11 +10,9 @@
   animation-name: example;
   animation-delay: 0s;
   animation-duration: 2s;
-
   width: 10vmax;
   height: 10vmax;
-  border-bottom: 0.5vmax solid rgb(154, 150, 150);
-  background-color: white;
+  border-bottom: 0.5vmax solid rgb(88, 86, 86);
   animation: example 1800ms linear infinite;
 }
 

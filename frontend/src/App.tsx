@@ -7,7 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import DetailsPage from "./components/ProductDetails/ProductDetailsPage";
+import DetailsPage from "./components/Product/ProductDetailsPage";
 
 export default function App() {
   useEffect(() => {

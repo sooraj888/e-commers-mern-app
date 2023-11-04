@@ -23,6 +23,10 @@ export default function Home() {
     dispatch(getAllProducts({}));
   }, [dispatch, error, bottomAlert]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Fragment>
       {loading ? (
