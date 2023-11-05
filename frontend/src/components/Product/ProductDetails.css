@@ -98,11 +98,13 @@
   color: white;
   border-width: 1px;
   border-color: white;
+  transition: all ease 200ms;
 }
 .block-3-1-2 > button:hover,
 .block-7 > button:hover {
   background: rgb(238, 109, 16);
   border-color: wheat;
+  transform: scale(1.05);
 }
 
 .block-4 > span {
@@ -137,7 +139,6 @@
   color: orangered;
 }
 
-.reviews-h3,
 .no-reviews {
   display: flex;
   text-align: center;
@@ -145,6 +146,11 @@
 }
 .reviews-h3 {
   font-family: Roboto;
+  text-align: center;
+  border-bottom: 1px solid rgb(188, 186, 186);
+  margin: 0vmax auto 2vmax auto;
+  width: 20vmax;
+  padding-bottom: 1vmax;
 }
 .no-reviews {
   font-size: 1vmax;
@@ -152,9 +158,8 @@
 }
 .review {
   overflow: auto;
-  white-space: nowrap;
-  margin: 0px 5vmax;
   display: flex;
+  margin: 0px auto;
 }
 
 @media screen and (max-width: 1200px) {
@@ -209,9 +214,27 @@
     width: 100%;
     padding-bottom: 0.5vmax;
   }
+
+  .block-1,
+  .block-3,
+  .block-4,
+  .block-5,
+  .block-6 {
+    text-align: center;
+    padding: 2vmax;
+  }
+
+  .block-2,
+  .block-3-1,
+  .block-4 {
+    justify-content: center;
+    padding: 2vmax;
+  }
+
   .block-3 {
     font-size: 1.6vmax;
   }
+
   .block-3-1-1 > button {
     width: 3vmax;
     height: 4vmax;

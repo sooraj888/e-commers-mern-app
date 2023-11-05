@@ -1,0 +1,41 @@
+.pagination {
+  display: flex;
+  flex-direction: row;
+  width: 90vw;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  list-style: none;
+}
+
+.button {
+  padding: 0.5vmax 2vmax;
+  background-color: gray;
+  margin: 0px 4vmax;
+  border-radius: 10px;
+}
+
+.pageClassName {
+  padding: 0.5vmax 2vmax;
+  background-color: rgb(196, 250, 254);
+  margin: 0px 4vmax;
+}
+
+.numberButton {
+  padding: 1vw;
+  background-color: red;
+  margin: 0px 1vmax;
+}
+
+.activeButton {
+  background-color: rgb(210, 142, 142);
+}
+
+.numberButton:hover,
+.button:hover {
+  background-color: red;
+  cursor: pointer;
+}
+.d {
+  background-color: white;
+}

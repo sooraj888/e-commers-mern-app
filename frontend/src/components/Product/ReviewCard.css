@@ -10,8 +10,10 @@
   margin: 1vmax;
   width: 20vmax;
 }
+
 .cardContainer {
-  display: inline-block;
+  justify-content: center;
+  margin: auto;
 }
 
 .avatar {

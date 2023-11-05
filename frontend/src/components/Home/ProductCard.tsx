@@ -12,7 +12,7 @@ export default function Product({ product }: { product: any }) {
   };
 
   return (
-    <Link className="productCard" to={`product/${product?._id}`}>
+    <Link className="productCard" to={`/product/${product?._id}`}>
       <img
         src={
           String(product?.image[0]?.url).startsWith("http")

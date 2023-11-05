@@ -3,9 +3,9 @@ import axios from "axios";
 
 export const getAllProducts = createAsyncThunk(
   "products/getAllProducts",
-  async ({}: any, { rejectWithValue }) => {
+  async ({ page }: any, { rejectWithValue }) => {
     const res = await axios
-      .get(`/api/v1/products/`)
+      .get(`/api/v1/products/`, { params: { page } })
       .then((e) => e)
       .catch((e) => {
         return rejectWithValue(e.response);

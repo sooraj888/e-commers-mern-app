@@ -14,6 +14,53 @@ import { idText } from "typescript";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ReactStars from "react-rating-stars-component";
 import ReviewsCard from "./ReviewsCard";
+import Loader from "../layout/Loader/Loader";
+import { getAllProducts } from "../../redux/product/productSlice";
+
+const reviews = [
+  {
+    user: "65158a45f0d4d4b470d25299",
+    name: "sooraj",
+    rating: 3,
+    comment: "v product",
+    _id: "6544fff9dfe90e78e28e1958",
+  },
+  {
+    user: "65158a45f0d4d4b470d25299",
+    name: "sooraj",
+    rating: 3,
+    comment: "v product",
+    _id: "6544fff9dfe90e78e28e1951",
+  },
+  {
+    user: "65158a45f0d4d4b470d25299",
+    name: "sooraj",
+    rating: 3,
+    comment: "v product",
+    _id: "6544fff9dfe90e78e28e1952",
+  },
+  {
+    user: "65158a45f0d4d4b470d25299",
+    name: "sooraj",
+    rating: 3,
+    comment: "v product",
+    _id: "6544fff9dfe90e78e28e1953",
+  },
+  {
+    user: "65158a45f0d4d4b470d25299",
+    name: "sooraj",
+    rating: 3,
+    comment: "v product",
+    _id: "6544fff9dfe90e78e28e1954",
+  },
+  {
+    user: "65158a45f0d4d4b470d25299",
+    name: "sooraj",
+    rating: 3,
+    comment: "v product",
+    _id: "6544fff9dfe90e78e28e195",
+  },
+];
 
 const options = {
   edit: false,
@@ -47,17 +94,14 @@ export default function ProductDetailsPage() {
   const dispatch = useDispatch<any>();
   const bottomAlert = useAlert();
 
-  useEffect(() => {
-    if (id) {
-      dispatch(getProductDetails({ productId: id, navigation: navigate }));
-    }
-  }, [id, dispatch]);
-
   useEffect((): any => {
     if (error) {
       return bottomAlert.error(errorMessage);
     }
-  }, [error]);
+    if (id) {
+      dispatch(getProductDetails({ productId: id, navigation: navigate }));
+    }
+  }, [id, dispatch, , error, bottomAlert]);
 
   useEffect(() => {
     setRatings(product?.ratings);
@@ -67,7 +111,9 @@ export default function ProductDetailsPage() {
     window.scrollTo(0, 0);
   }, []);
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <Fragment>
       <div className="productDetails">
         <div className="carouselContainer">
@@ -88,16 +134,18 @@ export default function ProductDetailsPage() {
             <h6>product #{product?._id}</h6>
           </div>
           <div className="block-2">
-            {ratings && (
-              <ReactStars
-                value={ratings}
-                edit={false}
-                color={"rgba(20,20,20,0.2)"}
-                activeColor={"tomato"}
-                isHalf={true}
-                size={window.innerWidth < 600 ? 20 : 20}
-              />
-            )}
+            <span>
+              {ratings && (
+                <ReactStars
+                  value={ratings}
+                  edit={false}
+                  color={"rgba(20,20,20,0.2)"}
+                  activeColor={"tomato"}
+                  isHalf={true}
+                  size={window.innerWidth < 600 ? 20 : 20}
+                />
+              )}
+            </span>
             <h5>{`(${product?.numOfReviews}  ${
               Number(product?.numOfReviews) == 1 ? "review" : "reviews"
             })`}</h5>

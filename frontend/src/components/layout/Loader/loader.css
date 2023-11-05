@@ -1,6 +1,6 @@
 .loading {
   width: 100vw;
-  height: 100vh;
+  margin: 10vmax 0px;
   display: grid;
   place-items: center;
   /* max-width: 100%; */
