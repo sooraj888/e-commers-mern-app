@@ -6,25 +6,45 @@ import Loader from "../layout/Loader/Loader";
 import ProductCard from "../Home/ProductCard";
 import ReactPaginate from "react-paginate";
 import "./Pagination.css";
+import {
+  useNavigate,
+  useNavigation,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 export default function ProductPage() {
-  const { products, productCount, loading, error, errorMessage } = useSelector(
-    (state: any) => state.products
-  );
+  const {
+    products,
+    productCount,
+    sortedProductCount,
+    loading,
+    error,
+    errorMessage,
+  } = useSelector((state: any) => state.products);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get("page");
+  const search = searchParams.get("search");
   const dispatch = useDispatch<any>();
   const bottomAlert = useAlert();
-  const [pagination, setPagination] = useState(1);
 
+  const contentPerPage = 8;
+  const pageCount = Math.ceil(sortedProductCount / contentPerPage);
+
+  const navigate = useNavigate();
+  const handlePageClick = (event: any) => {
+    window.scrollTo(0, 0);
+    setSearchParams((prevParams) => {
+      prevParams.set("page", `${Number(event?.selected) + 1}`);
+      return prevParams;
+    });
+  };
   useEffect((): any => {
     if (error) {
       return bottomAlert.error(errorMessage);
     }
-    dispatch(getAllProducts({ page: pagination }));
-  }, [dispatch, error, bottomAlert, pagination]);
-
-  const handlePageClick = (event: any) => {
-    setPagination(Number(event?.selected) + 1);
-  };
+    dispatch(getAllProducts({ page: Number(page) || 1, search: search || "" }));
+  }, [dispatch, error, bottomAlert, page, search]);
 
   return (
     <Fragment>
@@ -38,21 +58,24 @@ export default function ProductPage() {
         </div>
       )}
 
-      <ReactPaginate
-        breakLabel="---"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        pageCount={Math.floor(productCount / 4) + 1}
-        renderOnZeroPageCount={null}
-        nextLabel={"Next"}
-        previousLabel={"Previous"}
-        className="pagination"
-        nextLinkClassName="button"
-        previousLinkClassName="button"
-        disabledLinkClassName="d"
-        activeLinkClassName="activeButton"
-        pageLinkClassName="numberButton"
-      />
+      {pageCount > 1 && (
+        <ReactPaginate
+          breakLabel="---"
+          initialPage={Number(page) ? Number(page) - 1 || 0 : 0}
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          renderOnZeroPageCount={null}
+          nextLabel={"Next"}
+          previousLabel={"Previous"}
+          className="pagination"
+          nextLinkClassName="button"
+          previousLinkClassName="button"
+          disabledLinkClassName="disabled"
+          activeLinkClassName="activeButton"
+          pageLinkClassName="numberButton"
+        />
+      )}
     </Fragment>
   );
 }

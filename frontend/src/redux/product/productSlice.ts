@@ -3,9 +3,9 @@ import axios from "axios";
 
 export const getAllProducts = createAsyncThunk(
   "products/getAllProducts",
-  async ({ page }: any, { rejectWithValue }) => {
+  async ({ page, search }: any, { rejectWithValue }) => {
     const res = await axios
-      .get(`/api/v1/products/`, { params: { page } })
+      .get(`/api/v1/products/`, { params: { page, keyword: search } })
       .then((e) => e)
       .catch((e) => {
         return rejectWithValue(e.response);
@@ -22,6 +22,7 @@ export const counterSlice = createSlice({
     error: false,
     errorMessage: "",
     products: [],
+    sortedProductCount: 0,
   },
 
   reducers: {},
@@ -36,6 +37,7 @@ export const counterSlice = createSlice({
         state.loading = false;
         state.productCount = data?.productCount;
         state.products = data?.products;
+        state.sortedProductCount = data?.sortedProductCount;
       })
       .addCase(getAllProducts.rejected.type, (state, action: any) => {
         state.loading = false;

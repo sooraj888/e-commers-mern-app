@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import DetailsPage from "./components/Product/ProductDetailsPage";
 import Products from "./components/Product/ProductPage";
+import Search from "./components/layout/header/Search";
 export default function App() {
   useEffect(() => {
     WebFont.load({
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/" Component={Home}></Route>
           <Route path="/products" Component={Products}></Route>
           <Route path="/product/:id" Component={DetailsPage}></Route>
+          <Route path="/search" Component={Search}></Route>
           <Route path="*" Component={() => <>Not found</>}></Route>
         </Routes>
         <Footer />

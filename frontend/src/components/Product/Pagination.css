@@ -2,40 +2,52 @@
   display: flex;
   flex-direction: row;
   width: 90vw;
+  height: 0.5vmax;
   align-items: center;
   justify-content: center;
   margin: auto;
   list-style: none;
 }
 
-.button {
-  padding: 0.5vmax 2vmax;
-  background-color: gray;
-  margin: 0px 4vmax;
-  border-radius: 10px;
-}
-
-.pageClassName {
-  padding: 0.5vmax 2vmax;
-  background-color: rgb(196, 250, 254);
-  margin: 0px 4vmax;
-}
-
 .numberButton {
-  padding: 1vw;
-  background-color: red;
+  padding: 1vmax 1.4vmax;
+  border: 1px solid blue;
   margin: 0px 1vmax;
 }
 
-.activeButton {
-  background-color: rgb(210, 142, 142);
+.numberButton:hover {
+  background-color: rgb(246, 125, 125);
+  cursor: pointer;
+  border-color: transparent;
+  color: white;
 }
 
-.numberButton:hover,
-.button:hover {
-  background-color: red;
-  cursor: pointer;
+.button {
+  padding: 1vmax;
+  border: 1px solid blue;
 }
-.d {
+.button:hover {
+  background-color: rgb(248, 8, 8);
+  cursor: pointer;
+  color: white;
+  border-color: transparent;
+}
+
+.activeButton {
+  background-color: rgb(246, 125, 125);
+  color: white;
+  border-color: white;
+}
+
+.disabled {
   background-color: white;
+  color: white;
+  border: none;
+}
+
+.disabled:hover {
+  background-color: white;
+  color: white;
+  border: none;
+  cursor: default;
 }

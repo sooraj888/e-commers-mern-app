@@ -82,6 +82,7 @@ const carouselOptions = {
   thumbWidth: 40,
   infiniteLoop: true,
 };
+
 export default function ProductDetailsPage() {
   const { id } = useParams();
   const { product, loading, error, errorMessage } = useSelector(

@@ -1,9 +1,9 @@
 .loading {
   width: 100vw;
-  margin: 10vmax 0px;
+  height: 100vh;
   display: grid;
   place-items: center;
-  /* max-width: 100%; */
+  max-width: 100%;
 }
 .loading > div {
   border-radius: 100%;
