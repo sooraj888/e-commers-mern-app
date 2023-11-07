@@ -10,6 +10,7 @@ import store from "./redux/store";
 import DetailsPage from "./components/Product/ProductDetailsPage";
 import Products from "./components/Product/ProductPage";
 import Search from "./components/layout/header/Search";
+import { ChakraProvider } from "@chakra-ui/react";
 export default function App() {
   useEffect(() => {
     WebFont.load({
@@ -28,11 +29,11 @@ export default function App() {
     <Provider store={store}>
       <Fragment>
         <Header />
+
         <Routes>
           <Route path="/" Component={Home}></Route>
           <Route path="/products" Component={Products}></Route>
           <Route path="/product/:id" Component={DetailsPage}></Route>
-          <Route path="/search" Component={Search}></Route>
           <Route path="*" Component={() => <>Not found</>}></Route>
         </Routes>
         <Footer />

@@ -7,6 +7,7 @@ import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { ChakraProvider } from "@chakra-ui/react";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -18,11 +19,13 @@ const options = {
 root.render(
   <React.StrictMode>
     <Router>
-      <AlertProvider template={AlertTemplate} {...options}>
-        <HelmetProvider>
-          <App />
-        </HelmetProvider>
-      </AlertProvider>
+      <ChakraProvider>
+        <AlertProvider template={AlertTemplate} {...options}>
+          <HelmetProvider>
+            <App />
+          </HelmetProvider>
+        </AlertProvider>
+      </ChakraProvider>
     </Router>
   </React.StrictMode>
 );

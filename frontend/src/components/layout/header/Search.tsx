@@ -1,16 +1,30 @@
 import React, { useState } from "react";
 import "./Search.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
-export default function Search() {
-  const [searchText, setSearchText] = useState<any>("");
+export default function Search({
+  setShowSearch,
+}: {
+  setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const [searchText, setSearchText] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const handleOnSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setShowSearch(false);
     navigate(`/products?search=${searchText}`);
   };
   return (
-    <form className="search" onSubmit={handleOnSubmitSearch}>
+    <form className={`search `} onSubmit={handleOnSubmitSearch}>
+      <button
+        className="closeSearch"
+        type="button"
+        onClick={() => {
+          setShowSearch(false);
+        }}
+      >
+        Close
+      </button>
       <input
         autoFocus
         placeholder="Search any product"

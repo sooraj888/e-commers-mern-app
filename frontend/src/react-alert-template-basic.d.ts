@@ -5,13 +5,7 @@ declare module "react-alert-template-basic" {
 }
 
 declare module "overlay-navbar" {
-  export interface ReactNavbarProps {
-    // add the props that you want to use from the module
-    color?: string;
-    logo?: string;
-    menu?: any[];
-    social?: any[];
-  }
+  export interface ReactNavbarProps {}
 
   export class ReactNavbar extends React.Component<any> {}
 }

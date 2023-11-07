@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 // import {CgMouse} from "react-icons/all"
 import "./Home.css";
-import Title from "../Header/Title";
+import Title from "../layout/header/Title";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { getAllProducts } from "../../redux/product/productSlice";

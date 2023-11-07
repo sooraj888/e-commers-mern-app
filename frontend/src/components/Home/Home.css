@@ -78,7 +78,8 @@
 }
 
 .productCard {
-  width: 14vmax;
+  width: 16vmax;
+
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -92,7 +93,7 @@
 }
 
 .productCard > img {
-  width: 12vmax;
+  width: 16vmax;
   margin: auto;
   min-height: 20vmax;
   /* height: 20vmax; */
@@ -137,6 +138,10 @@
 }
 
 @media screen and (max-width: 1100px) {
+  .productCard {
+    width: 18vmax;
+    margin: 1vmax;
+  }
   .rating {
     display: flex;
     justify-content: center;
@@ -155,6 +160,9 @@
 }
 
 @media screen and (max-width: 600px) {
+  .productCard {
+    width: 18vmax;
+  }
   .productCard > p {
     padding: 1vmax;
     font-size: 1.7vmax;
@@ -169,5 +177,11 @@
   }
   .productCard > span {
     font-size: 1.5vmax;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .productCard {
+    margin: 1vmax;
   }
 }

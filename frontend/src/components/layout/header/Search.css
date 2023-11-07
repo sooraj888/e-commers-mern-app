@@ -10,11 +10,22 @@
   padding: 1vmax;
   min-width: 30vmax;
   border-radius: 3px;
+  border: 1px solid gray;
+  border-right-width: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 .search > button {
   padding: 1vmax;
-  margin-left: 0.2rem;
   background-color: orange;
-  border-color: white;
+  border: 1px solid gray;
   border-radius: 3px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.closeSearch {
+  position: absolute;
+  right: 5vmax;
+  top: 5vmax;
 }

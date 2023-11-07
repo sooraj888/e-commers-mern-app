@@ -1,12 +1,27 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 import Logo from "../../../assets/logo.png";
 import { ReactNavbar } from "overlay-navbar";
 import { BiSearch } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import Search from "./Search";
 
 export default function Header() {
   const navigate = useNavigate();
+  const [showSearch, setShowSearch] = useState(false);
+
+  const handleBackButton = (event: any) => {
+    setShowSearch(false);
+  };
+
+  // Use useEffect to add and remove the event listener
+  useEffect(() => {
+    window.addEventListener("popstate", handleBackButton);
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, []);
+
   return (
     <header>
       <ReactNavbar
@@ -36,23 +51,32 @@ export default function Header() {
         searchIconUrl="/search"
         searchIconTransition={0.05}
       />
-      <div
+      <button
         style={{
           width: "vmax",
           height: "2vmax",
           position: "fixed",
           right: "5vmax",
           top: "2.5vmax",
+          padding: 20,
+        }}
+        onClick={() => {
+          setShowSearch(true);
         }}
       >
-        <BiSearch
-          size={"2.5vmax"}
-          color="gray"
-          onClick={() => {
-            navigate("/search");
+        <BiSearch size={"2.5vmax"} color="gray" />
+      </button>
+      {showSearch && (
+        <div
+          style={{
+            position: "fixed",
+            backgroundColor: "white",
+            zIndex: 10000000,
           }}
-        />
-      </div>
+        >
+          <Search setShowSearch={setShowSearch} />
+        </div>
+      )}
     </header>
   );
 }
