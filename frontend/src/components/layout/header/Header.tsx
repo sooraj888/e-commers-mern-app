@@ -5,6 +5,7 @@ import { ReactNavbar } from "overlay-navbar";
 import { BiSearch } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import Search from "./Search";
+import Title from "./Title";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header>
+    <header style={{ zIndex: 2 }}>
       <ReactNavbar
         logo={Logo}
         logoWidth="250px"
@@ -59,6 +60,7 @@ export default function Header() {
           right: "5vmax",
           top: "2.5vmax",
           padding: 20,
+          zIndex: 2,
         }}
         onClick={() => {
           setShowSearch(true);
@@ -74,6 +76,7 @@ export default function Header() {
             zIndex: 10000000,
           }}
         >
+          <Title>Search</Title>
           <Search setShowSearch={setShowSearch} />
         </div>
       )}

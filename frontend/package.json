@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": false,
-  "proxy": "https://e-commerce-server-render.onrender.com",
   "dependencies": {
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",

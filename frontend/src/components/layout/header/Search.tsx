@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Search.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import Title from "./Title";
 export default function Search({
   setShowSearch,
 }: {

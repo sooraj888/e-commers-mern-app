@@ -15,7 +15,10 @@ import {
 } from "react-router-dom";
 import SliderMarkCompt from "../miscellaneous/SliderMarkCompt";
 import RangeSliderComp from "../miscellaneous/RangeSliderComp";
-
+import axios from "axios";
+import StarSlider from "../miscellaneous/StarSlider";
+import Title from "../layout/header/Title";
+var source = axios.CancelToken.source();
 const categoryArray = [
   "Laptop",
   "Footwears",
@@ -38,6 +41,7 @@ const ProductPage = memo(() => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page");
   const search = searchParams.get("search");
+  const category = searchParams.get("category");
   const dispatch = useDispatch<any>();
   const bottomAlert = useAlert();
 
@@ -49,7 +53,9 @@ const ProductPage = memo(() => {
 
   let timeOut: NodeJS.Timeout;
   let filterTimeout: NodeJS.Timeout;
-  const [category, setCategory] = useState("");
+  // const [category, setCategory] = useState("");
+
+  const [ratings, setRatings] = useState(0);
 
   const handlePageClick = (event: any) => {
     // window.scrollTo(0,
@@ -64,33 +70,53 @@ const ProductPage = memo(() => {
     setSearchParams((prevParams) => {
       prevParams.set("page", `1`);
       prevParams.delete("search");
+      prevParams.delete("category");
       return prevParams;
     });
     setPriceRange([0, 100000]);
   };
 
-  const handleCategory = (item: string) => {
-    setCategory(item);
+  const handleCategory = (selectedCategory: string) => {
+    // setCategory(item);
+    setSearchParams((prevParams) => {
+      prevParams.set("page", `1`);
+      prevParams.set("category", selectedCategory);
+      prevParams.delete("search");
+      return prevParams;
+    });
   };
 
-  useEffect((): any => {
+  useEffect(() => {
     if (error) {
-      return bottomAlert.error(errorMessage);
+      return () => {
+        bottomAlert.error(errorMessage);
+      };
     }
+
     timeOut = setTimeout(() => {
       dispatch(
         getAllProducts({
           page: Number(page) || 1,
           search: search || "",
           priceRange,
-          category,
+          category: category,
+          ratings,
         })
       );
     }, 1000);
     return () => {
       clearTimeout(timeOut);
     };
-  }, [dispatch, error, bottomAlert, page, search, priceRange, category]);
+  }, [
+    dispatch,
+    error,
+    bottomAlert,
+    page,
+    search,
+    priceRange,
+    category,
+    ratings,
+  ]);
 
   useEffect(() => {
     if (
@@ -115,6 +141,7 @@ const ProductPage = memo(() => {
 
   return (
     <Fragment>
+      <Title>Products</Title>
       {loading ? (
         <Loader />
       ) : (
@@ -124,7 +151,6 @@ const ProductPage = memo(() => {
           })}
         </div>
       )}
-
       <div className={Styles.filters}>
         <button
           className={Styles.filterRemove}
@@ -142,12 +168,24 @@ const ProductPage = memo(() => {
           <p>Category</p>
           <ul className={Styles.categoryList}>
             {categoryArray?.map((item: string) => (
-              <li key={item} onClick={() => handleCategory(item)}>
+              <li
+                key={item}
+                className={category === item ? Styles.activeCategory : ""}
+                onClick={() => handleCategory(item)}
+              >
                 {item}
               </li>
             ))}
           </ul>
         </div>
+        <fieldset className={Styles.ratingSlider}>
+          <StarSlider
+            onChange={(e) => {
+              setRatings(e);
+            }}
+          />
+          <legend>Rating Above</legend>
+        </fieldset>
       </div>
 
       {!loading && pageCount > 1 && (

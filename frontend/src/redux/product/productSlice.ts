@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
+import axios, { CancelTokenSource } from "axios";
+import { CancelToken } from "axios";
+var source = axios.CancelToken.source();
 export const getAllProducts = createAsyncThunk(
   "products/getAllProducts",
   async (
@@ -9,27 +10,45 @@ export const getAllProducts = createAsyncThunk(
       search,
       priceRange,
       category,
+      ratings,
     }: {
       page?: number | string;
       search?: string;
       priceRange?: [number, number];
-      category?: string;
+      category?: string | null;
+      ratings?: number;
     },
     { rejectWithValue }
   ) => {
+    // alert("category" + category);
+    source?.cancel("Operation canceled by the user.");
+    source = axios.CancelToken.source();
+    const options: any = {
+      cancelToken: source?.token,
+      params: {
+        page,
+        keyword: search,
+        "price[gte]": priceRange?.[0],
+        "price[lte]": priceRange?.[1],
+      },
+    };
+    if (category) {
+      options.params["category"] = category;
+    }
+    if (ratings) {
+      options.params["ratings[gte]"] = ratings;
+    }
+
     const res = await axios
-      .get(`/api/v1/products/`, {
-        params: {
-          page,
-          keyword: search,
-          "price[gte]": priceRange?.[0],
-          "price[lte]": priceRange?.[1],
-          category: category,
-        },
-      })
+      .get(`/api/v1/products/`, options)
       .then((e) => e)
       .catch((e) => {
-        return rejectWithValue(e.response);
+        if (axios.isCancel(e)) {
+          console.log("Request canceled", e.message);
+        } else {
+          // handle error
+        }
+        return rejectWithValue(e.response || e);
       });
     return res;
   }
@@ -67,6 +86,10 @@ export const counterSlice = createSlice({
           action?.payload?.statusText ||
           "ERROR: Something Went Wrong";
         state.error = true;
+        if (axios.isCancel(action?.payload)) {
+          state.error = false;
+          state.errorMessage = "";
+        }
       });
   },
 });

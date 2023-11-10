@@ -29,7 +29,6 @@ export default function App() {
     <Provider store={store}>
       <Fragment>
         <Header />
-
         <Routes>
           <Route path="/" Component={Home}></Route>
           <Route path="/products" Component={Products}></Route>

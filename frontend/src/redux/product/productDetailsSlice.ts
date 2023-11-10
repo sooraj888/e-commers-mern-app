@@ -7,7 +7,6 @@ export const getProductDetails = createAsyncThunk(
     { productId, navigation }: { productId: string; navigation: any },
     { rejectWithValue }
   ) => {
-    console.log(productId);
     const res = await axios
       .get(`/api/v1/products/${productId}`)
       .then((e) => e)

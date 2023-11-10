@@ -16,6 +16,7 @@ import ReactStars from "react-rating-stars-component";
 import ReviewsCard from "./ReviewsCard";
 import Loader from "../layout/Loader/Loader";
 import { getAllProducts } from "../../redux/product/productSlice";
+import Title from "../layout/header/Title";
 
 const reviews = [
   {
@@ -113,9 +114,13 @@ export default function ProductDetailsPage() {
   }, []);
 
   return loading ? (
-    <Loader />
+    <>
+      <Title>Loading</Title>
+      <Loader />
+    </>
   ) : (
     <Fragment>
+      <Title>Product Details</Title>
       <div className="productDetails">
         <div className="carouselContainer">
           <Carousel {...carouselOptions}>
