@@ -1,0 +1,146 @@
+.authContainer {
+  width: 100vw;
+  height: 100dvh;
+  background-color: rgb(231, 228, 228);
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.authCard {
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 0.5vmax;
+}
+.buttonSwap {
+  transform: translateX(100%);
+}
+.authHeader {
+}
+.authHeader > div > button {
+  width: 50%;
+  padding: 0.6vmax;
+  font-size: 1.3vmax;
+}
+.authHeader > div > button:hover {
+  background-color: rgb(240, 240, 240);
+  color: gray;
+  border-radius: 5px;
+}
+.authHeader > button {
+  height: 0.5vmax;
+  background-color: red;
+  width: 50%;
+  transition: all ease 0.5s;
+}
+.formContainer {
+  /* background: rgb(94, 216, 94); */
+  height: 60dvh;
+  width: 25vw;
+  overflow: hidden;
+}
+
+.loginForm {
+  /* background-color: gray; */
+  height: 60dvh;
+  overflow: scroll;
+  z-index: 2;
+  transform: translateX(0%);
+  padding-top: 2vmax;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5vmax;
+  transition: all ease 0.5s;
+}
+form > div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0.5vmax 0px;
+}
+form > div > svg {
+  position: absolute;
+  color: gray;
+  transform: translateX(1vmax);
+}
+form > div > input {
+  width: 100%;
+  padding: 0.8vmax 0px;
+  padding-left: 4vmax;
+  padding-right: 1vmax;
+  border-radius: 5px;
+  outline: none;
+  background-color: rgb(238, 237, 237);
+}
+.signUpForm {
+  height: 60dvh;
+  overflow: scroll;
+  transform: translateX(100%) translateY(-60vh);
+}
+.signUpForm > span {
+  display: flex;
+  margin: 1vmax 0px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.signUpForm > span > img {
+  width: 3vw;
+  height: 3vw;
+  background-color: red;
+  margin-left: 1vmax;
+}
+.signUpForm > span > input::-webkit-file-upload-button {
+  width: 90%;
+  padding: 0.5vmax 0px;
+  margin: 1vmax 5%;
+}
+
+.hideLoginForm {
+  transform: translateX(-100%);
+}
+.unHideSignUpForm {
+  transform: translateX(0%) translateY(-60vh);
+  /* display: flex; */
+}
+.loginForm > a {
+  align-self: flex-end;
+}
+form > button {
+  width: 100%;
+  padding: 0.5vmax;
+  background-color: rgb(241, 119, 74);
+  border-radius: 5px;
+  margin-top: 2vmax;
+  color: white;
+}
+form > button:hover {
+  background-color: rgb(244, 74, 12);
+}
+@media screen and (max-width: 1800px) {
+  .formContainer {
+    width: 30vw;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .formContainer {
+    width: 45vw;
+  }
+  .authHeader > div > button {
+    font-size: 2vmax;
+  }
+}
+@media screen and (max-width: 750px) {
+  .formContainer {
+    width: 70vw;
+  }
+  .signUpForm > span > img {
+    width: 8vw;
+    height: 8vw;
+  }
+}

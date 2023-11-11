@@ -24,7 +24,17 @@ export default function Header() {
   }, []);
 
   return (
-    <header style={{ zIndex: 2 }}>
+    <header
+      style={{
+        zIndex: 2,
+        // background: "red",
+        // height: "10vmax",
+        // position: "fixed",
+        // top: 0,
+        // left: 0,
+        // width: "100%",
+      }}
+    >
       <ReactNavbar
         logo={Logo}
         logoWidth="250px"
@@ -52,22 +62,43 @@ export default function Header() {
         searchIconUrl="/search"
         searchIconTransition={0.05}
       />
-      <button
+
+      <div
         style={{
-          width: "vmax",
-          height: "2vmax",
           position: "fixed",
           right: "5vmax",
           top: "2.5vmax",
-          padding: 20,
           zIndex: 2,
-        }}
-        onClick={() => {
-          setShowSearch(true);
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
         }}
       >
-        <BiSearch size={"2.5vmax"} color="gray" />
-      </button>
+        <button
+          style={{
+            padding: 10,
+            zIndex: 2,
+            margin: "0px 1vmax",
+          }}
+          onClick={() => {
+            setShowSearch(true);
+          }}
+        >
+          <BiSearch size={"2vmax"} color="gray" />
+        </button>
+        <button
+          style={{
+            padding: 5,
+            fontSize: "1.5vmax",
+          }}
+          onClick={() => {
+            navigate("/authentication/login");
+          }}
+        >
+          Login
+        </button>
+      </div>
+
       {showSearch && (
         <div
           style={{

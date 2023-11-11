@@ -120,7 +120,7 @@ export default function ProductDetailsPage() {
     </>
   ) : (
     <Fragment>
-      <Title>Product Details</Title>
+      <Title>{String(product?.name)} Details</Title>
       <div className="productDetails">
         <div className="carouselContainer">
           <Carousel {...carouselOptions}>
