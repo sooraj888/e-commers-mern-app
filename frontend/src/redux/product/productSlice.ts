@@ -12,7 +12,7 @@ export const getAllProducts = createAsyncThunk(
       category,
       ratings,
     }: {
-      page?: number | string;
+      page?: number;
       search?: string;
       priceRange?: [number, number];
       category?: string | null;
@@ -26,12 +26,14 @@ export const getAllProducts = createAsyncThunk(
     const options: any = {
       cancelToken: source?.token,
       params: {
-        page,
         keyword: search,
         "price[gte]": priceRange?.[0],
         "price[lte]": priceRange?.[1],
       },
     };
+    if (page) {
+      options.params["page"] = page;
+    }
     if (category) {
       options.params["category"] = category;
     }

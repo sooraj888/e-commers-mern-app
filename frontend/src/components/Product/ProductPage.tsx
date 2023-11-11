@@ -58,12 +58,17 @@ const ProductPage = memo(() => {
   const [ratings, setRatings] = useState(0);
 
   const handlePageClick = (event: any) => {
-    // window.scrollTo(0,
-    setSearchParams((prevParams) => {
-      prevParams.set("page", `${Number(event?.selected) + 1}`);
-      prevParams.delete("search");
-      return prevParams;
-    });
+    console.log(event, event?.nextSelectedPage);
+    window.scrollTo(0, 0);
+
+    if (Number(event?.nextSelectedPage) + 1) {
+      console.log(event?.nextSelectedPage);
+      setSearchParams((prevParams) => {
+        prevParams.set("page", `${Number(event.nextSelectedPage) + 1}`);
+        prevParams.delete("search");
+        return prevParams;
+      });
+    }
   };
 
   const handleOnRemoveAllFilter = () => {
@@ -96,7 +101,7 @@ const ProductPage = memo(() => {
     timeOut = setTimeout(() => {
       dispatch(
         getAllProducts({
-          page: Number(page) || 1,
+          page: Number(page),
           search: search || "",
           priceRange,
           category: category,
@@ -191,8 +196,11 @@ const ProductPage = memo(() => {
       {!loading && pageCount > 1 && (
         <ReactPaginate
           breakLabel="---"
-          initialPage={Number(page) ? Number(page) - 1 || 0 : 0}
-          onPageChange={handlePageClick}
+          initialPage={Number(page) ? Number(page) - 1 : 0}
+          // onPageChange={handlePageClick}
+          // onClick={handlePageClick}
+          // onPageChange={handlePageClick}
+          onClick={handlePageClick}
           pageRangeDisplayed={3}
           pageCount={pageCount}
           renderOnZeroPageCount={null}
