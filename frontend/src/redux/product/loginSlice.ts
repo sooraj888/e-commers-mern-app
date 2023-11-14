@@ -31,7 +31,6 @@ export const callLoginApi = createAsyncThunk(
 export const callLoginWithToken = createAsyncThunk(
   "login/callLoginWithToken",
   async ({ navigate }: any, { rejectWithValue }) => {
-    console.log("jiiiiiiiiiiiiiiiiiiii");
     const res = await axios
       .get(`/api/v1/me`)
       .then((e) => {
@@ -63,21 +62,12 @@ export const callLogoutApi = createAsyncThunk(
 
 export const callSignUpApi = createAsyncThunk(
   "login/callSignUpApi",
-  async (
-    {
-      name,
-      email,
-      password,
-    }: { name: string; email: string; password: string },
-    { rejectWithValue }
-  ) => {
-    console.log({ name, email, password });
+  async ({ formData }: { formData: any }, { rejectWithValue }) => {
+    // console.log({ name, email, password });
     const res = await axios
-      .post(
-        `/api/v1/register`,
-        { name, email, password }
-        // { headers: { "Content-Type": "multipart/form-data" } }
-      )
+      .post(`/api/v1/register`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then((e) => e)
       .catch((e) => {
         return rejectWithValue(e.response);

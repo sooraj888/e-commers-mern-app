@@ -14,7 +14,7 @@ const sendToken = async (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie("token", token, options)
-    .json({ success: true, user, token });
+    .json({ success: true, user });
 };
 
 module.exports = sendToken;

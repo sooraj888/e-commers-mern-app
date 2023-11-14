@@ -58,11 +58,9 @@ const ProductPage = memo(() => {
   const [ratings, setRatings] = useState(0);
 
   const handlePageClick = (event: any) => {
-    console.log(event, event?.nextSelectedPage);
     window.scrollTo(0, 0);
 
     if (Number(event?.nextSelectedPage) + 1) {
-      console.log(event?.nextSelectedPage);
       setSearchParams((prevParams) => {
         prevParams.set("page", `${Number(event.nextSelectedPage) + 1}`);
         prevParams.delete("search");

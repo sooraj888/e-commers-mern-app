@@ -16,6 +16,7 @@ export default function Profile() {
   return isAuthenticated ? (
     <>
       {JSON.stringify(response)}
+
       <button
         onClick={() => {
           dispatch(callLogoutApi({ navigate }));

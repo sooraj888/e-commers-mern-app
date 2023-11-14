@@ -57,7 +57,7 @@ exports.registerUser = catchAsyncErrors(async (req, res) => {
       password,
     });
   }
-
+  user = await User.findById(user._id).select("-password");
   sendToken(user, 201, res);
   // res.status(500).json({ message: "something went wrong" });
 });

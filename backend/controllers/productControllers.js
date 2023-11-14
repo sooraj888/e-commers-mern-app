@@ -110,7 +110,6 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
   );
 
   if (isReviewed) {
-    console.log("ji");
     product.reviews.forEach((rev) => {
       if (rev.user?.toString() == req.user._id?.toString()) {
         rev.rating = rating;
@@ -128,7 +127,7 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
   });
 
   product.ratings = Number(avg) / Number(product.reviews.length);
-  console.log(product.reviews.length);
+
   // console.log()
   await product.save({ validateBeforeSave: false });
   res.status(200).json({ success: true });

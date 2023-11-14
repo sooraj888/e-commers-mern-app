@@ -27,12 +27,13 @@ export default function LogInSignUpPage() {
     log_email: "",
     log_password: "",
   });
+
+  const [avatar, setAvatar] = useState<any>();
   const [signUpData, setSignUpData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    publicID: "",
     pic: "",
   });
 
@@ -53,6 +54,7 @@ export default function LogInSignUpPage() {
   };
   const handleOnLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     dispatch(
       callLoginApi({
         email: loginData.log_email,
@@ -63,7 +65,18 @@ export default function LogInSignUpPage() {
   };
 
   const onChangeSignUp = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "pic") {
+    if (e.target.id === "pic") {
+      if (e.target.files && e.target.files[0]) {
+        let reader = new FileReader();
+        reader.onload = (e2) => {
+          setAvatar(e?.target?.files?.[0]);
+          setSignUpData((prev: any) => {
+            const updatedData = { ...prev, pic: String(e2?.target?.result) };
+            return updatedData;
+          });
+        };
+        reader?.readAsDataURL(e?.target?.files?.[0]);
+      }
       return;
     }
     setSignUpData((prev: any) => {
@@ -74,12 +87,14 @@ export default function LogInSignUpPage() {
 
   const handleOnSignUpSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    const formData = new FormData();
+    formData.set("name", signUpData.name);
+    formData.set("email", signUpData.email);
+    formData.set("password", signUpData.password);
+    formData.set("image", avatar);
     dispatch(
       callSignUpApi({
-        name: signUpData.name,
-        email: signUpData.email,
-        password: signUpData.password,
+        formData,
       })
     );
   };
@@ -110,6 +125,9 @@ export default function LogInSignUpPage() {
     isFirstTime = false;
   }, [error]);
 
+  // useEffect(() => {
+  //   console.log(signUpData.pic);
+  // }, [signUpData.pic]);
   return (
     <div className="authContainer">
       {loading && (
@@ -188,6 +206,7 @@ export default function LogInSignUpPage() {
             onSubmit={handleOnSignUpSubmit}
             action="#"
             autoComplete="off"
+            encType="multipart/form-data"
           >
             <div>
               <BsFillPersonFill />
@@ -238,10 +257,11 @@ export default function LogInSignUpPage() {
               />
             </div>
             <span>
-              <img alt="Profile"></img>
+              <img alt="Profile" src={signUpData.pic}></img>
               <input
                 id="pic"
                 type="file"
+                accept="image/*"
                 tabIndex={isLoginSelected ? -1 : 1}
                 onChange={onChangeSignUp}
               ></input>
