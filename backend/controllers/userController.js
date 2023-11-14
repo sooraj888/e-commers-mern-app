@@ -5,23 +5,61 @@ const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
+const streamifier = require("streamifier");
+// import {v2 as cloudinary} from 'cloudinary';
+
+const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "drsqqay9m",
+  api_key: "825267688972368",
+  api_secret: "PTHBxwVaSuk5RbFXfpogTmH_aBE",
+});
+// Create a Multer instance with a memory storage
+const upload = multer({ storage: multer.memoryStorage() });
+async function uploadStream(file) {
+  return new Promise((resolve, reject) => {
+    let stream = cloudinary.uploader.upload_stream((error, result) => {
+      if (result) {
+        resolve(result);
+      } else {
+        reject(error);
+      }
+    });
+    streamifier.createReadStream(file.buffer).pipe(stream);
+  });
+}
 
 //! ----------------------- Register a User ----------------------------
 
-exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+exports.registerUser = catchAsyncErrors(async (req, res) => {
   const { name, email, password } = req.body;
 
-  const user = await User.create({
-    name,
-    email,
-    password,
-    avatar: {
-      public_id: "This is a sample Id",
-      url: "profile pic url",
-    },
-  });
+  let result;
+  let user;
+  if (req.file?.buffer) {
+    result = await uploadStream(req.file);
+    console.log(result);
+    user = await User.create({
+      name,
+      email,
+      password,
+      avatar: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
+    });
+  } else {
+    user = await User.create({
+      name,
+      email,
+      password,
+    });
+  }
 
   sendToken(user, 201, res);
+  // res.status(500).json({ message: "something went wrong" });
 });
 
 //! ----------------------- Login a User -----------------------------

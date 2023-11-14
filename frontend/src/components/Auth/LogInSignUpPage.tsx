@@ -74,6 +74,7 @@ export default function LogInSignUpPage() {
 
   const handleOnSignUpSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     dispatch(
       callSignUpApi({
         name: signUpData.name,

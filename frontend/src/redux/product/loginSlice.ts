@@ -71,11 +71,12 @@ export const callSignUpApi = createAsyncThunk(
     }: { name: string; email: string; password: string },
     { rejectWithValue }
   ) => {
+    console.log({ name, email, password });
     const res = await axios
       .post(
         `/api/v1/register`,
-        { name, email, password },
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { name, email, password }
+        // { headers: { "Content-Type": "multipart/form-data" } }
       )
       .then((e) => e)
       .catch((e) => {

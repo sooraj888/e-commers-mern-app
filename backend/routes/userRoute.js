@@ -16,7 +16,12 @@ const {
 const { isAuthenticatedUser, authorizeRole } = require("../middleware/auth");
 const router = express.Router();
 
-router.route("/register").post(registerUser);
+const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+// Create a Multer instance with a memory storage
+const upload = multer({ storage: multer.memoryStorage() });
+
+router.post("/register", upload.single("image"), registerUser);
 
 router.route("/login").post(loginUser);
 
