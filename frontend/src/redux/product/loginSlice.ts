@@ -4,7 +4,11 @@ import axios from "axios";
 export const callLoginApi = createAsyncThunk(
   "login/callLoginApi",
   async (
-    { email, password }: { email: string; password: string },
+    {
+      email,
+      password,
+      navigate,
+    }: { email: string; password: string; navigate: any },
     { rejectWithValue }
   ) => {
     const res = await axios
@@ -12,6 +16,66 @@ export const callLoginApi = createAsyncThunk(
         `/api/v1/login`,
         { email, password },
         { headers: { "Content-Type": "application/json" } }
+      )
+      .then((e) => {
+        // navigate("/");
+        return e;
+      })
+      .catch((e) => {
+        return rejectWithValue(e.response);
+      });
+    return res;
+  }
+);
+
+export const callLoginWithToken = createAsyncThunk(
+  "login/callLoginWithToken",
+  async ({ navigate }: any, { rejectWithValue }) => {
+    console.log("jiiiiiiiiiiiiiiiiiiii");
+    const res = await axios
+      .get(`/api/v1/me`)
+      .then((e) => {
+        // navigate("/");
+        return e;
+      })
+      .catch((e) => {
+        return rejectWithValue(e.response);
+      });
+    return res;
+  }
+);
+
+export const callLogoutApi = createAsyncThunk(
+  "login/callLogoutApi",
+  async ({ navigate }: { navigate: any }, { rejectWithValue }) => {
+    const res = await axios
+      .get(`/api/v1/logout`)
+      .then((e) => {
+        navigate("/login");
+        return e;
+      })
+      .catch((e) => {
+        return rejectWithValue(e.response);
+      });
+    return res;
+  }
+);
+
+export const callSignUpApi = createAsyncThunk(
+  "login/callSignUpApi",
+  async (
+    {
+      name,
+      email,
+      password,
+    }: { name: string; email: string; password: string },
+    { rejectWithValue }
+  ) => {
+    const res = await axios
+      .post(
+        `/api/v1/register`,
+        { name, email, password },
+        { headers: { "Content-Type": "multipart/form-data" } }
       )
       .then((e) => e)
       .catch((e) => {
@@ -28,6 +92,7 @@ export const loginSlice = createSlice({
     error: false,
     errorMessage: "",
     response: {},
+    isAuthenticated: false,
   },
 
   reducers: {},
@@ -41,6 +106,9 @@ export const loginSlice = createSlice({
       .addCase(callLoginApi.fulfilled, (state, { payload: { data } }) => {
         state.loading = false;
         state.response = data;
+        if (data.user) {
+          state.isAuthenticated = true;
+        }
       })
       .addCase(callLoginApi.rejected, (state, action: any) => {
         state.loading = false;
@@ -49,6 +117,51 @@ export const loginSlice = createSlice({
           action?.payload?.statusText ||
           "ERROR: Something Went Wrong";
         state.error = true;
+        state.isAuthenticated = false;
+      })
+      .addCase(callLoginWithToken.pending, (state) => {
+        state.errorMessage = "";
+        state.error = false;
+      })
+      .addCase(callLoginWithToken.fulfilled, (state, { payload: { data } }) => {
+        state.loading = false;
+        state.response = data;
+        if (data.user) {
+          state.isAuthenticated = true;
+        }
+      })
+      .addCase(callLoginWithToken.rejected, (state, action: any) => {
+        state.loading = false;
+        state.errorMessage = "";
+        // action?.payload?.data?.error ||
+        // action?.payload?.statusText ||
+        // "ERROR: Something Went Wrong";
+        state.error = false;
+        state.isAuthenticated = false;
+      })
+      .addCase(callLogoutApi.fulfilled, (state, { payload: { data } }) => {
+        state.isAuthenticated = false;
+      })
+      .addCase(callSignUpApi.pending, (state) => {
+        state.loading = true;
+        state.errorMessage = "";
+        state.error = false;
+      })
+      .addCase(callSignUpApi.fulfilled, (state, { payload: { data } }) => {
+        state.loading = false;
+        state.response = data;
+        if (data.user) {
+          state.isAuthenticated = true;
+        }
+      })
+      .addCase(callSignUpApi.rejected, (state, action: any) => {
+        state.loading = false;
+        state.errorMessage =
+          action?.payload?.data?.error ||
+          action?.payload?.statusText ||
+          "ERROR: Something Went Wrong";
+        state.error = true;
+        state.isAuthenticated = false;
       });
   },
 });

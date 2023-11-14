@@ -3,16 +3,24 @@ import Header from "./components/layout/header/Header";
 import Footer from "./components/layout/footer/Footer";
 import "./App.css";
 import WebFont from "webfontloader";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./components/Home/Home";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import store, { AppDispatch, RootState } from "./redux/store";
 import DetailsPage from "./components/Product/ProductDetailsPage";
 import Products from "./components/Product/ProductPage";
 import Search from "./components/layout/header/Search";
 import { ChakraProvider } from "@chakra-ui/react";
 import LogInSignUpPage from "./components/Auth/LogInSignUpPage";
+import { useDispatch } from "react-redux";
+import { callLoginWithToken } from "./redux/product/loginSlice";
+import { useSelector } from "react-redux";
+import Profile from "./components/Auth/Profile";
+
 export default function App() {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state: RootState) => state.login);
   useEffect(() => {
     WebFont.load({
       google: {
@@ -26,21 +34,23 @@ export default function App() {
       },
     });
   }, []);
+  useEffect(() => {
+    dispatch(callLoginWithToken({ navigate }));
+  }, []);
+
   return (
-    <Provider store={store}>
-      <Fragment>
-        <Header />
+    <Fragment>
+      <Header />
+      <Routes>
+        <Route path="/" Component={Home}></Route>
+        <Route path="/products" Component={Products}></Route>
+        <Route path="/product/:id" Component={DetailsPage}></Route>
+        <Route path="/profile" Component={Profile} />
+        <Route path="/login" Component={LogInSignUpPage} />
+        <Route path="*" Component={() => <>Page Not found</>}></Route>
+      </Routes>
 
-        <Routes>
-          <Route path="/" Component={Home}></Route>
-          <Route path="/products" Component={Products}></Route>
-          <Route path="/product/:id" Component={DetailsPage}></Route>
-          <Route path="/authentication/*" Component={LogInSignUpPage}></Route>
-          <Route path="*" Component={() => <>Not found</>}></Route>
-        </Routes>
-
-        <Footer />
-      </Fragment>
-    </Provider>
+      <Footer />
+    </Fragment>
   );
 }

@@ -6,10 +6,16 @@ import { BiSearch } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import Search from "./Search";
 import Title from "./Title";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 export default function Header() {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
+
+  const { isAuthenticated, loading, response } = useSelector(
+    (state: RootState) => state.login
+  );
 
   const handleBackButton = (event: any) => {
     setShowSearch(false);
@@ -92,10 +98,12 @@ export default function Header() {
             fontSize: "1.5vmax",
           }}
           onClick={() => {
-            navigate("/authentication/login");
+            {
+              !isAuthenticated ? navigate("/login") : navigate("/profile");
+            }
           }}
         >
-          Login
+          {!isAuthenticated ? "Login" : "Profile"}
         </button>
       </div>
 
