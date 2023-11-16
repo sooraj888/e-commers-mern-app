@@ -57,7 +57,8 @@ exports.registerUser = catchAsyncErrors(async (req, res) => {
       password,
     });
   }
-  user = await User.findById(user._id).select("-password");
+  user.password = undefined;
+
   sendToken(user, 201, res);
   // res.status(500).json({ message: "something went wrong" });
 });
@@ -81,6 +82,8 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Invalid Email and Password", 401));
   }
+
+  user.password = undefined;
 
   sendToken(user, 200, res);
 });
