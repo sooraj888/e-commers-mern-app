@@ -17,7 +17,7 @@ cloudinary.config({
   api_secret: "PTHBxwVaSuk5RbFXfpogTmH_aBE",
 });
 // Create a Multer instance with a memory storage
-const upload = multer({ storage: multer.memoryStorage() });
+
 async function uploadStream(file) {
   return new Promise((resolve, reject) => {
     let stream = cloudinary.uploader.upload_stream((error, result) => {
@@ -30,7 +30,24 @@ async function uploadStream(file) {
     streamifier.createReadStream(file.buffer).pipe(stream);
   });
 }
-
+async function updateStream(file, public_id) {
+  return new Promise((resolve, reject) => {
+    let stream = cloudinary.uploader.upload_stream(
+      {
+        public_id: public_id,
+        invalidate: true,
+      },
+      (error, result) => {
+        if (result) {
+          resolve(result);
+        } else {
+          reject(error);
+        }
+      }
+    );
+    streamifier.createReadStream(file.buffer).pipe(stream);
+  });
+}
 //! ----------------------- Register a User ----------------------------
 
 exports.registerUser = catchAsyncErrors(async (req, res) => {
@@ -190,12 +207,48 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 //! ------------------------ Update Profile -----------------------------
 
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
-  const newUserData = { name: req.body.name, email: req.body.email };
-  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
-    new: true,
-    runValidators: true,
-  });
-  res.status(200).json({ success: true, user });
+  const { name, email, password, public_id } = req.body;
+  let result;
+  let user;
+  if (req.file?.buffer) {
+    if (!public_id) {
+      return next(new ErrorHandler("public_id required", 400));
+    }
+    result = await updateStream(req.file, public_id);
+    console.log(result);
+    user = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        name,
+        email,
+        password,
+        avatar: {
+          public_id: result.public_id,
+          url: result.secure_url,
+        },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  } else {
+    user = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        name,
+        email,
+        password,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
+  user.password = undefined;
+
+  sendToken(user, 200, res);
 });
 
 //! ------------------------ Get All users Admin -----------------------------

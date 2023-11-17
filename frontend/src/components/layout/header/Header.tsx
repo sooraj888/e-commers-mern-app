@@ -8,12 +8,16 @@ import Search from "./Search";
 import Title from "./Title";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
+import Loader from "../Loader/Loader";
+import SmLoader from "../Loader/SmLoader";
+import AccountMenu from "./AccountMenu";
 
 export default function Header() {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
 
-  const { isAuthenticated, loading, response } = useSelector(
+  const { isAuthenticated, loading, response }: any = useSelector(
     (state: RootState) => state.login
   );
 
@@ -99,11 +103,22 @@ export default function Header() {
           }}
           onClick={() => {
             {
-              !isAuthenticated ? navigate("/login") : navigate("/profile");
+              !loading && !isAuthenticated && navigate("/login");
             }
           }}
         >
-          {!isAuthenticated ? "Login" : "Profile"}
+          {loading ? (
+            <SmLoader />
+          ) : !isAuthenticated ? (
+            "Login"
+          ) : (
+            <AccountMenu>
+              <Avatar
+                name={String(response?.user?.name)}
+                src={String(response?.user?.avatar?.url)}
+              />
+            </AccountMenu>
+          )}
         </button>
       </div>
 

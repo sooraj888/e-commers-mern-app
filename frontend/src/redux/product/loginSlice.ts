@@ -76,6 +76,22 @@ export const callSignUpApi = createAsyncThunk(
   }
 );
 
+export const callUpdateUserApi = createAsyncThunk(
+  "login/updateApi",
+  async ({ formData }: { formData: any }, { rejectWithValue }) => {
+    // console.log({ name, email, password });
+    const res = await axios
+      .put(`/me/update`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((e) => e)
+      .catch((e) => {
+        return rejectWithValue(e.response);
+      });
+    return res;
+  }
+);
+
 export const loginSlice = createSlice({
   name: "login",
   initialState: {
@@ -113,6 +129,7 @@ export const loginSlice = createSlice({
       .addCase(callLoginWithToken.pending, (state) => {
         state.errorMessage = "";
         state.error = false;
+        state.loading = true;
       })
       .addCase(callLoginWithToken.fulfilled, (state, { payload: { data } }) => {
         state.loading = false;
@@ -132,6 +149,7 @@ export const loginSlice = createSlice({
       })
       .addCase(callLogoutApi.fulfilled, (state, { payload: { data } }) => {
         state.isAuthenticated = false;
+        state.loading = false;
       })
       .addCase(callSignUpApi.pending, (state) => {
         state.loading = true;
@@ -153,6 +171,23 @@ export const loginSlice = createSlice({
           "ERROR: Something Went Wrong";
         state.error = true;
         state.isAuthenticated = false;
+      })
+      .addCase(callUpdateUserApi.pending, (state) => {
+        state.loading = true;
+        state.errorMessage = "";
+        state.error = false;
+      })
+      .addCase(callUpdateUserApi.fulfilled, (state, { payload: { data } }) => {
+        state.loading = false;
+        state.response = data;
+      })
+      .addCase(callUpdateUserApi.rejected, (state, action: any) => {
+        state.loading = false;
+        state.errorMessage =
+          action?.payload?.data?.error ||
+          action?.payload?.statusText ||
+          "ERROR: Something Went Wrong";
+        state.error = true;
       });
   },
 });

@@ -15,7 +15,25 @@
   border-bottom: 0.5vmax solid rgb(88, 86, 86);
   animation: example 1800ms linear infinite;
 }
-
+.smLoader {
+  width: 2vmax;
+  height: 2vmax;
+  display: flex;
+  /* place-items: center; */
+  /* max-width: 100%; */
+  justify-content: center;
+  align-items: center;
+}
+.smLoader > div {
+  border-radius: 100%;
+  animation-name: example;
+  animation-delay: 0s;
+  animation-duration: 2s;
+  width: 2vmax;
+  height: 2vmax;
+  border-bottom: 0.2vmax solid rgb(172, 169, 169);
+  animation: example 1800ms linear infinite;
+}
 @keyframes example {
   to {
     rotate: 360deg;

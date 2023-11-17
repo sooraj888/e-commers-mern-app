@@ -1,0 +1,112 @@
+.container {
+  width: 100vw;
+  height: 100dvh;
+  background-color: rgb(231, 228, 228);
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginForm {
+  height: 60dvh;
+  overflow: scroll;
+  z-index: 2;
+  padding-top: 2vmax;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5vmax;
+  transition: all ease 0.5s;
+}
+form > div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0.5vmax 0px;
+}
+form > div > svg {
+  position: absolute;
+  color: gray;
+  transform: translateX(1vmax);
+}
+form > div > input {
+  width: 100%;
+  padding: 0.8vmax 0px;
+  padding-left: 4vmax;
+  padding-right: 1vmax;
+  border-radius: 5px;
+  outline: none;
+  background-color: rgb(238, 237, 237);
+}
+.updateForm {
+  height: 80dvh;
+  overflow: scroll;
+  position: relative;
+}
+.updateForm > span {
+  display: flex;
+  margin: 1vmax 0px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+.updateForm > span > img {
+  width: 8vmax;
+  height: 8vmax;
+  background-color: red;
+  margin-left: 1vmax;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1vmax;
+}
+.updateForm > span > input::-webkit-file-upload-button {
+  width: 90%;
+  padding: 0.2vmax 0px;
+  margin: 0.4vmax 5%;
+}
+
+.loginForm > a {
+  align-self: flex-end;
+}
+form > button {
+  width: 100%;
+  padding: 0.5vmax;
+  background-color: rgb(241, 119, 74);
+  border-radius: 5px;
+  margin-top: 2vmax;
+  color: white;
+}
+form > button:hover {
+  background-color: rgb(244, 74, 12);
+}
+@media screen and (max-width: 1800px) {
+  .formContainer {
+    width: 30vw;
+    position: relative;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .formContainer {
+    width: 45vw;
+  }
+  .authHeader > div > button {
+    font-size: 2.5vmax;
+  }
+}
+@media screen and (max-width: 750px) {
+  .formContainer {
+    width: 70vw;
+  }
+  .updateForm > span > img {
+    width: 8vw;
+    height: 8vw;
+  }
+  .authHeader > div > button {
+    font-size: initial;
+  }
+}

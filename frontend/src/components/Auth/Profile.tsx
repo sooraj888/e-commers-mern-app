@@ -6,16 +6,20 @@ import { callLogoutApi } from "../../redux/product/loginSlice";
 import { useEditable } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import Styles from "./profile.module.css";
+import Loader from "../layout/Loader/Loader";
 
 export default function Profile() {
   const {
     isAuthenticated,
     response: { user },
+    loading,
   }: any = useSelector((state: RootState) => state.login);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  return isAuthenticated ? (
+  return loading ? (
+    <Loader />
+  ) : isAuthenticated ? (
     <div className={Styles.container}>
       <h1>My Profile</h1>
       <div>

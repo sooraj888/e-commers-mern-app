@@ -35,7 +35,12 @@ router.route("/me").get(isAuthenticatedUser, getUserDetails);
 
 router.route("/password/update").put(isAuthenticatedUser, updatePassword);
 
-router.route("/me/update").put(isAuthenticatedUser, updateProfile);
+router.put(
+  "/me/update",
+  upload.single("image"),
+  isAuthenticatedUser,
+  updateProfile
+);
 
 router
   .route("/admin/users")
