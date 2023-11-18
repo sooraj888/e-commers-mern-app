@@ -39,7 +39,7 @@ export default function Profile() {
           <h3>Joined On</h3>
           <h5>{`${user?.createdDate}`.substring(0, 10)}</h5>
           <Link to="/myOrders">My Orders</Link>
-          <Link to="/changePassword">Change Password</Link>
+          <Link to="/updatePassword">Change Password</Link>
         </div>
       </div>
     </div>

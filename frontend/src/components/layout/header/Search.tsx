@@ -26,17 +26,19 @@ export default function Search({
       >
         Close
       </button>
-      <input
-        autoFocus
-        placeholder="Search any product"
-        type="text"
-        required
-        value={searchText}
-        onChange={(e) => {
-          setSearchText(e.target.value);
-        }}
-      />
-      <button>Search</button>
+      <div>
+        <input
+          autoFocus
+          placeholder="Search any product"
+          type="text"
+          required
+          value={searchText}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
+        />
+        <button>Search</button>
+      </div>
     </form>
   );
 }

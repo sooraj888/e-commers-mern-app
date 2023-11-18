@@ -6,83 +6,55 @@ import { Link, useNavigate } from "react-router-dom";
 import Loader from "../layout/Loader/Loader";
 import { BsFillPersonFill } from "react-icons/bs";
 import {
+  UpdateUserPasswordApi,
   callSignUpApi,
   callUpdateUserApi,
+  clearSuccessMessage,
 } from "../../redux/product/loginSlice";
 import { MdEmail } from "react-icons/md";
 import { BiSolidLock } from "react-icons/bi";
-import Styles from "./EditProfile.module.css";
+import Styles from "./UpdatePassword.module.css";
 import { useAlert } from "react-alert";
 import { Avatar, Image } from "@chakra-ui/react";
+import { FaLock } from "react-icons/fa6";
+
 var isFirstTime = true;
-export default function EditProfile() {
+export default function UpdatePassword() {
   const {
     isAuthenticated,
     response: { user },
     loading,
     error,
     errorMessage,
+    successMessage,
   }: any = useSelector((state: RootState) => state.login);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const [{ name, email, pic }, setUpdateData] = useState({
-    name: "",
-    email: "",
-    pic: "",
-  });
-
-  const [avatar, setAvatar] = useState<any>();
+  const [{ oldPassword, newPassword, confirmNewPassword }, setUpdateData] =
+    useState({
+      oldPassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
+    });
 
   const bottomAlert = useAlert();
 
   const handleOnSignUpSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData();
-    if (name) formData.set("name", name);
-    if (email) formData.set("email", email);
-
-    if (avatar && user.avatar.public_id) {
-      formData.set("image", avatar);
-      formData.set("public_id", user.avatar.public_id);
-    }
-
     dispatch(
-      callUpdateUserApi({
-        formData,
+      UpdateUserPasswordApi({
+        newPassword,
+        oldPassword,
       })
     );
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === "pic") {
-      if (e.target.files && e.target.files[0]) {
-        let reader = new FileReader();
-        reader.onload = (e2) => {
-          setAvatar(e?.target?.files?.[0]);
-          setUpdateData((prev: any) => {
-            const updatedData = { ...prev, pic: String(e2?.target?.result) };
-            return updatedData;
-          });
-        };
-        reader?.readAsDataURL(e?.target?.files?.[0]);
-      }
-      return;
-    } else {
-      setUpdateData((prev: any) => {
-        const updatedData = { ...prev, [`${e.target.id}`]: e.target.value };
-        return updatedData;
-      });
-    }
-  };
-
-  useEffect(() => {
-    setUpdateData({
-      ...user,
-      name: user?.name,
-      email: user?.email,
-      pic: user?.avatar?.url,
+    setUpdateData((prev: any) => {
+      const updatedData = { ...prev, [`${e.target.id}`]: e.target.value };
+      return updatedData;
     });
-  }, [user]);
+  };
 
   useEffect(() => {
     if (error) {
@@ -92,6 +64,18 @@ export default function EditProfile() {
     }
     isFirstTime = false;
   }, [error]);
+
+  useEffect(() => {
+    if (successMessage) {
+      bottomAlert.success(successMessage);
+    }
+  }, [successMessage]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearSuccessMessage());
+    };
+  }, []);
 
   return (
     <div className={Styles.container}>
@@ -105,36 +89,40 @@ export default function EditProfile() {
           autoComplete="off"
           encType="multipart/form-data"
         >
-          <span>
-            <Avatar name="Profile" src={pic} size={"xl"} mb={"1vmax"}></Avatar>
-            <input
-              id="pic"
-              type="file"
-              accept="image/*"
-              onChange={onChange}
-            ></input>
-          </span>
           <div>
-            <BsFillPersonFill />
+            <FaLock />
             <input
-              id="name"
-              type="text"
-              placeholder="Name"
-              value={name}
+              required
+              id="oldPassword"
+              type="password"
+              placeholder="Old Password"
+              value={oldPassword}
               onChange={onChange}
             />
           </div>
           <div>
-            <MdEmail size={"1.5vmax"} />
+            <FaLock />
             <input
-              id="email"
-              type="email"
-              placeholder="Email"
-              value={email}
+              required
+              id="newPassword"
+              type="password"
+              placeholder="New Password"
+              value={newPassword}
               onChange={onChange}
             />
           </div>
-          {/* <Link to={"/updatePassword"}>Update Password</Link> */}
+          <div>
+            <FaLock />
+            <input
+              required
+              id="confirmNewPassword"
+              type="password"
+              placeholder="Confirm New Password"
+              value={confirmNewPassword}
+              onChange={onChange}
+            />
+          </div>
+
           <button type="submit">Update</button>
         </form>
       ) : (

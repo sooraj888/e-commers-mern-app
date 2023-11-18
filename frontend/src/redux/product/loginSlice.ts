@@ -79,13 +79,35 @@ export const callSignUpApi = createAsyncThunk(
 export const callUpdateUserApi = createAsyncThunk(
   "login/updateApi",
   async ({ formData }: { formData: any }, { rejectWithValue }) => {
-    // console.log({ name, email, password });
     const res = await axios
-      .put(`/me/update`, formData, {
+      .put(`/api/v1/me/update`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then((e) => e)
+      .then((e) => {
+        console.log(e);
+        return e;
+      })
       .catch((e) => {
+        console.log(e);
+        return rejectWithValue(e.response);
+      });
+    return res;
+  }
+);
+
+export const UpdateUserPasswordApi = createAsyncThunk(
+  "login/UpdateUserPasswordApi",
+  async (
+    { oldPassword, newPassword }: { oldPassword: string; newPassword: string },
+    { rejectWithValue }
+  ) => {
+    const res = await axios
+      .put(`/api/v1/password/update`, { oldPassword, newPassword })
+      .then((e) => {
+        return e;
+      })
+      .catch((e) => {
+        console.log(e);
         return rejectWithValue(e.response);
       });
     return res;
@@ -100,9 +122,14 @@ export const loginSlice = createSlice({
     errorMessage: "",
     response: {},
     isAuthenticated: false,
+    successMessage: "",
   },
 
-  reducers: {},
+  reducers: {
+    clearSuccessMessage: (state) => {
+      state.successMessage = "";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(callLoginApi.pending, (state) => {
@@ -188,9 +215,34 @@ export const loginSlice = createSlice({
           action?.payload?.statusText ||
           "ERROR: Something Went Wrong";
         state.error = true;
+      })
+      .addCase(UpdateUserPasswordApi.pending, (state) => {
+        state.loading = true;
+        state.errorMessage = "";
+        state.error = false;
+        state.successMessage = "";
+      })
+      .addCase(
+        UpdateUserPasswordApi.fulfilled,
+        (state, { payload: { data } }) => {
+          state.loading = false;
+          state.successMessage = "Password Updated SuccessFully";
+          // state.response = data;
+        }
+      )
+      .addCase(UpdateUserPasswordApi.rejected, (state, action: any) => {
+        state.loading = false;
+        state.errorMessage =
+          action?.payload?.data?.error ||
+          action?.payload?.statusText ||
+          "ERROR: Something Went Wrong";
+        state.error = true;
+        state.successMessage = "";
       });
   },
 });
 
 const loginReducer = loginSlice.reducer;
+
+export const { clearSuccessMessage } = loginSlice.actions;
 export default loginReducer;

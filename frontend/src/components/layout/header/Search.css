@@ -1,13 +1,19 @@
 .search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
   width: 100vw;
   height: 100vh;
   background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.search > input {
+
+.search > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search > div > input {
   padding: 1vmax;
   min-width: 30vmax;
   border-radius: 3px;
@@ -15,8 +21,9 @@
   border-right-width: 0px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
+  width: auto;
 }
-.search > button {
+.search > div > button {
   padding: 1vmax;
   background-color: orange;
   border: 1px solid gray;
@@ -26,7 +33,8 @@
 }
 
 .closeSearch {
-  position: absolute;
+  position: fixed;
   right: 5vmax;
   top: 5vmax;
+  width: auto;
 }

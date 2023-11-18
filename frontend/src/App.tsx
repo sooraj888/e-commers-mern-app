@@ -17,6 +17,7 @@ import { callLoginWithToken } from "./redux/product/loginSlice";
 import { useSelector } from "react-redux";
 import Profile from "./components/Auth/Profile";
 import EditProfile from "./components/Auth/EditProfile";
+import UpdatePassword from "./components/Auth/UpdatePassword";
 
 export default function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -50,6 +51,8 @@ export default function App() {
         <Route path="/profile" Component={Profile} />
         <Route path="/login" Component={LogInSignUpPage} />
         <Route path="/editProfile" Component={EditProfile} />
+        <Route path="/updatePassword" Component={UpdatePassword} />
+
         <Route path="*" Component={() => <>Page Not found</>}></Route>
       </Routes>
       <Footer />

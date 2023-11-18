@@ -55,15 +55,7 @@ form > div > input {
   justify-content: space-evenly;
   flex-direction: column;
 }
-.updateForm > span > img {
-  width: 8vmax;
-  height: 8vmax;
-  background-color: red;
-  margin-left: 1vmax;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 1vmax;
-}
+
 .updateForm > span > input::-webkit-file-upload-button {
   width: 90%;
   padding: 0.2vmax 0px;
@@ -72,6 +64,15 @@ form > div > input {
 
 .loginForm > a {
   align-self: flex-end;
+}
+form > a {
+  align-self: flex-end;
+  padding-right: 1vmax;
+}
+form > a:hover {
+  transition: all ease 300ms;
+  color: orangered;
+  text-decoration: underline;
 }
 form > button {
   width: 100%;
