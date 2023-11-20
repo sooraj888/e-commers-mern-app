@@ -10,7 +10,7 @@ import {
   callSignUpApi,
   callUpdateUserApi,
   clearSuccessMessage,
-} from "../../redux/product/loginSlice";
+} from "../../redux/user/loginSlice";
 import { MdEmail } from "react-icons/md";
 import { BiSolidLock } from "react-icons/bi";
 import Styles from "./UpdatePassword.module.css";

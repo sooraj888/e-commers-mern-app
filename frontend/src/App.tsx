@@ -13,11 +13,13 @@ import Search from "./components/layout/header/Search";
 import { ChakraProvider } from "@chakra-ui/react";
 import LogInSignUpPage from "./components/Auth/LogInSignUpPage";
 import { useDispatch } from "react-redux";
-import { callLoginWithToken } from "./redux/product/loginSlice";
+import { callLoginWithToken } from "./redux/user/loginSlice";
 import { useSelector } from "react-redux";
 import Profile from "./components/Auth/Profile";
 import EditProfile from "./components/Auth/EditProfile";
 import UpdatePassword from "./components/Auth/UpdatePassword";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import PasswordReset from "./components/Auth/PasswordReset";
 
 export default function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -48,8 +50,13 @@ export default function App() {
         <Route path="/products" Component={Products}></Route>
         <Route path="/product/:id" Component={DetailsPage}></Route>
 
-        <Route path="/profile" Component={Profile} />
+        {/*Only UnAuthenticated Routes */}
         <Route path="/login" Component={LogInSignUpPage} />
+        <Route path="/forgotPassword" Component={ForgotPassword} />
+        <Route path="/passwordReset/:id" Component={PasswordReset} />
+
+        {/*UnAuthenticated Routes */}
+        <Route path="/profile" Component={Profile} />
         <Route path="/editProfile" Component={EditProfile} />
         <Route path="/updatePassword" Component={UpdatePassword} />
 

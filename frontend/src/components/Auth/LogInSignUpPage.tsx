@@ -5,7 +5,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useEditable } from "@chakra-ui/react";
-import { callLoginApi, callSignUpApi } from "../../redux/product/loginSlice";
+import { callLoginApi, callSignUpApi } from "../../redux/user/loginSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Loader from "../layout/Loader/Loader";

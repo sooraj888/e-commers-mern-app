@@ -5,10 +5,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../layout/Loader/Loader";
 import { BsFillPersonFill } from "react-icons/bs";
-import {
-  callSignUpApi,
-  callUpdateUserApi,
-} from "../../redux/product/loginSlice";
+import { callSignUpApi, callUpdateUserApi } from "../../redux/user/loginSlice";
 import { MdEmail } from "react-icons/md";
 import { BiSolidLock } from "react-icons/bi";
 import Styles from "./EditProfile.module.css";

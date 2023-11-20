@@ -12,7 +12,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { callLogoutApi } from "../../../redux/product/loginSlice";
+import { callLogoutApi } from "../../../redux/user/loginSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../../redux/store";

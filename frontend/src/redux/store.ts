@@ -3,13 +3,16 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 import ProductReducer from "./product/productSlice";
 import productDetails from "./product/productDetailsSlice";
-import loginReducer from "./product/loginSlice";
-
+import loginReducer from "./user/loginSlice";
+import forgetPasswordReducer from "./user/forgetPassword";
+import resetPasswordReducer from "./user/resetPassword";
 const store = configureStore({
   reducer: {
     products: ProductReducer,
     productDetails,
     login: loginReducer,
+    forgetPassword: forgetPasswordReducer,
+    resetPassword: resetPasswordReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

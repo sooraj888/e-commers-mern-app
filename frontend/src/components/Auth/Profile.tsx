@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useDispatch } from "react-redux";
-import { callLogoutApi } from "../../redux/product/loginSlice";
+import { callLogoutApi } from "../../redux/user/loginSlice";
 import { useEditable } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import Styles from "./profile.module.css";
