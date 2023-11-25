@@ -167,8 +167,8 @@ export default function LogInSignUpPage() {
             className="loginForm"
             ref={loginFormRef}
             onSubmit={handleOnLoginSubmit}
-            action="#"
-            autoComplete="off"
+            // action="#"
+            // autoComplete="off"
           >
             <div>
               <MdEmail size={"1.5vmax"} />

@@ -9,6 +9,7 @@
   min-width: 28vmax;
   width: 28vmax;
   transition: all 1s;
+  background-color: white;
 }
 .carouselContainer:hover {
   transform: translateY(-0.5vmax);
@@ -192,6 +193,13 @@
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .carouselContainer {
+    min-width: 50%;
+    width: 50%;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .details {
     padding: 5vmax;
@@ -201,7 +209,7 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .productDetails {
     flex-direction: column;
     justify-content: center;

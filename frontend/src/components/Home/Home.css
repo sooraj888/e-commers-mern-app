@@ -97,6 +97,7 @@
   width: 16vmax;
   margin: auto;
   min-height: 20vmax;
+  object-fit: cover;
   /* height: 20vmax; */
 }
 .productCard > div {

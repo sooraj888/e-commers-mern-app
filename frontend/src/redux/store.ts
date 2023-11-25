@@ -6,6 +6,7 @@ import productDetails from "./product/productDetailsSlice";
 import loginReducer from "./user/loginSlice";
 import forgetPasswordReducer from "./user/forgetPassword";
 import resetPasswordReducer from "./user/resetPassword";
+import cartReducer from "./cart/cart";
 const store = configureStore({
   reducer: {
     products: ProductReducer,
@@ -13,6 +14,7 @@ const store = configureStore({
     login: loginReducer,
     forgetPassword: forgetPasswordReducer,
     resetPassword: resetPasswordReducer,
+    cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

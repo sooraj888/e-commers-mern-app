@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   useNavigate,
@@ -17,51 +17,8 @@ import ReviewsCard from "./ReviewsCard";
 import Loader from "../layout/Loader/Loader";
 import { getAllProducts } from "../../redux/product/productSlice";
 import Title from "../layout/header/Title";
-
-const reviews = [
-  {
-    user: "65158a45f0d4d4b470d25299",
-    name: "sooraj",
-    rating: 3,
-    comment: "v product",
-    _id: "6544fff9dfe90e78e28e1958",
-  },
-  {
-    user: "65158a45f0d4d4b470d25299",
-    name: "sooraj",
-    rating: 3,
-    comment: "v product",
-    _id: "6544fff9dfe90e78e28e1951",
-  },
-  {
-    user: "65158a45f0d4d4b470d25299",
-    name: "sooraj",
-    rating: 3,
-    comment: "v product",
-    _id: "6544fff9dfe90e78e28e1952",
-  },
-  {
-    user: "65158a45f0d4d4b470d25299",
-    name: "sooraj",
-    rating: 3,
-    comment: "v product",
-    _id: "6544fff9dfe90e78e28e1953",
-  },
-  {
-    user: "65158a45f0d4d4b470d25299",
-    name: "sooraj",
-    rating: 3,
-    comment: "v product",
-    _id: "6544fff9dfe90e78e28e1954",
-  },
-  {
-    user: "65158a45f0d4d4b470d25299",
-    name: "sooraj",
-    rating: 3,
-    comment: "v product",
-    _id: "6544fff9dfe90e78e28e195",
-  },
-];
+import useWindowSize from "../../hooks/useWindowSize";
+import { payloadType, updateCart } from "../../redux/cart/cart";
 
 const options = {
   edit: false,
@@ -78,9 +35,9 @@ const carouselOptions = {
   interval: 2000,
   preventMovementUntilSwipeScrollTolerance: false,
   showArrows: false,
-  showThumbs: false,
+  // showThumbs: false,
   swipeable: true,
-  thumbWidth: 40,
+  // thumbWidth: 40,
   infiniteLoop: true,
 };
 
@@ -96,6 +53,34 @@ export default function ProductDetailsPage() {
   const dispatch = useDispatch<any>();
   const bottomAlert = useAlert();
 
+  const [refreshContainer, setRefreshContainer] = useState(false);
+  // const []
+
+  const [cartAddCount, setCartCount] = useState(0);
+  const decrementCartProduct = () => {
+    setCartCount((prev) => {
+      return Number(product?.stock) > prev ? prev + 1 : prev;
+    });
+  };
+  const incrementCartProduct = () => {
+    setCartCount((prev) => {
+      return prev > 0 ? prev - 1 : prev;
+    });
+  };
+
+  const handleOnAddToCart = () => {
+    dispatch(
+      updateCart({
+        cost: product?.price,
+        description: product?.description,
+        img: product?.image?.[0],
+        productId: product?._id,
+        quantity: cartAddCount,
+        name: product?.name,
+      })
+    );
+  };
+
   useEffect((): any => {
     if (error) {
       return bottomAlert.error(errorMessage);
@@ -104,9 +89,25 @@ export default function ProductDetailsPage() {
       dispatch(getProductDetails({ productId: id, navigation: navigate }));
     }
   }, [id, dispatch, , error, bottomAlert]);
-
+  const isCartItemFound = async () => {
+    if (product?._id) {
+      const cartItems = JSON.parse(`${localStorage.getItem("cartItems")}`);
+      if (cartItems) {
+        const productFound: payloadType = cartItems.find(
+          (productItem: payloadType) => {
+            return productItem.productId === product._id;
+          }
+        );
+        if (productFound) {
+          console.log(productFound);
+          setCartCount(productFound.quantity);
+        }
+      }
+    }
+  };
   useEffect(() => {
     setRatings(product?.ratings);
+    isCartItemFound();
   }, [product]);
 
   useEffect(() => {
@@ -128,7 +129,7 @@ export default function ProductDetailsPage() {
               return (
                 <div className="productImage" key={image?._id || index}>
                   <img alt={`image ${index} slide`} src={image?.url} />
-                  <p className="legend">{index + 1}</p>
+                  {/* <p className="legend">{index + 1}</p> */}
                 </div>
               );
             })}
@@ -162,12 +163,17 @@ export default function ProductDetailsPage() {
             </div>
             <div className="block-3-1">
               <span className="block-3-1-1">
-                <button onClick={() => {}}>-</button>
-                <input type="number" value={0} onChange={() => {}}></input>
-                <button onClick={() => {}}>+</button>
+                <button onClick={incrementCartProduct}>-</button>
+                <input
+                  type="number"
+                  value={cartAddCount}
+                  readOnly={true}
+                  onChange={() => {}}
+                ></input>
+                <button onClick={decrementCartProduct}>+</button>
               </span>
               <span className="block-3-1-2">
-                <button onClick={() => {}}>Add to Cart</button>
+                <button onClick={handleOnAddToCart}>Add to Cart</button>
               </span>
             </div>
           </div>
@@ -186,7 +192,7 @@ export default function ProductDetailsPage() {
             Category :<p> {product?.category} </p>
           </div>
           <div className="block-7">
-            <button>Submit Review</button>
+            <button onClick={handleOnAddToCart}>Submit Review</button>
           </div>
         </div>
       </div>
