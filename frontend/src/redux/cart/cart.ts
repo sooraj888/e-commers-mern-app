@@ -4,7 +4,7 @@ import { CancelToken } from "axios";
 var source = axios.CancelToken.source();
 export type payloadType = {
   productId: string;
-  img: string;
+  img: any;
   description: string;
   name: string;
   quantity: number;
@@ -16,7 +16,7 @@ export const cartSlice = createSlice({
     cartItems: JSON?.parse(`${localStorage.getItem("cartItems")}`)
       ? [...JSON?.parse(`${localStorage.getItem("cartItems")}`)]
       : [],
-    totalCartCost: 0,
+    totalCartCost: localStorage.getItem("totalCartCost") || 0,
   },
   reducers: {
     updateCart: (state, { payload }: PayloadAction<payloadType>) => {
@@ -26,11 +26,30 @@ export const cartSlice = createSlice({
           return productItem.productId === productId;
         }
       );
+
       if (productFound != -1) {
-        state.cartItems[productFound] = payload;
+        if (quantity == 0) {
+          state.cartItems = state.cartItems.filter((cartItems) => {
+            return cartItems.productId != productId;
+          });
+        } else {
+          state.cartItems[productFound] = payload;
+        }
       } else {
-        state.cartItems.push(payload);
+        if (quantity == 0) {
+          state.cartItems = state.cartItems.filter((cartItems) => {
+            return cartItems.productId != productId;
+          });
+        } else {
+          state.cartItems.push(payload);
+        }
       }
+      let cartTotalPrice = 0;
+      state.cartItems.forEach((cartItems: payloadType) => {
+        cartTotalPrice += cartItems.cost;
+      });
+      state.totalCartCost = cartTotalPrice;
+      localStorage.setItem("totalCartCost", `${cartTotalPrice}`);
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },

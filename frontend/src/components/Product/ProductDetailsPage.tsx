@@ -79,6 +79,7 @@ export default function ProductDetailsPage() {
         name: product?.name,
       })
     );
+    bottomAlert.show("Updated to Cart");
   };
 
   useEffect((): any => {

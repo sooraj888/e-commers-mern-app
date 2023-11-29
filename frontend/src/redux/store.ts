@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import ProductReducer from "./product/productSlice";
@@ -7,15 +7,20 @@ import loginReducer from "./user/loginSlice";
 import forgetPasswordReducer from "./user/forgetPassword";
 import resetPasswordReducer from "./user/resetPassword";
 import cartReducer from "./cart/cart";
+
+// Create a root reducer by combining the slice reducers
+const rootReducer = combineReducers({
+  products: ProductReducer,
+  productDetails,
+  login: loginReducer,
+  forgetPassword: forgetPasswordReducer,
+  resetPassword: resetPasswordReducer,
+  cart: cartReducer,
+  composeWithDevTools,
+});
+
 const store = configureStore({
-  reducer: {
-    products: ProductReducer,
-    productDetails,
-    login: loginReducer,
-    forgetPassword: forgetPasswordReducer,
-    resetPassword: resetPasswordReducer,
-    cart: cartReducer,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });

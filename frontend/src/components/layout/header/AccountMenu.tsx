@@ -15,10 +15,12 @@ import { useDispatch } from "react-redux";
 import { callLogoutApi } from "../../../redux/user/loginSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch } from "../../../redux/store";
+import { AppDispatch, RootState } from "../../../redux/store";
 import { MdAddCircleOutline } from "react-icons/md";
 import { FaPerson } from "react-icons/fa6";
 import { CiLogout } from "react-icons/ci";
+import { FaShoppingCart } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 export default function AccountMenu({
   children,
@@ -31,8 +33,10 @@ export default function AccountMenu({
     navigate("/profile");
   };
   const onClickLogout = () => {
-    dispatch(callLogoutApi({ navigate }));
+    navigate("/myCart");
   };
+  // const cartCount=useSelector((state)=>{return state})
+  const { cartItems } = useSelector((state: RootState) => state.cart);
   return (
     <Menu>
       <MenuButton>{children}</MenuButton>
@@ -40,6 +44,9 @@ export default function AccountMenu({
       <MenuList>
         <MenuItem onClick={onClickProfile} icon={<FaPerson />}>
           Profile
+        </MenuItem>
+        <MenuItem onClick={onClickLogout} icon={<FaShoppingCart />}>
+          <pre>Cart {`      ${cartItems.length}`}</pre>
         </MenuItem>
         <MenuItem onClick={onClickLogout} icon={<CiLogout />}>
           Logout
