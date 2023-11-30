@@ -19,6 +19,7 @@ import { getAllProducts } from "../../redux/product/productSlice";
 import Title from "../layout/header/Title";
 import useWindowSize from "../../hooks/useWindowSize";
 import { payloadType, updateCart } from "../../redux/cart/cart";
+import { RootState } from "../../redux/store";
 
 const options = {
   edit: false,
@@ -47,6 +48,12 @@ export default function ProductDetailsPage() {
     (state: any) => state.productDetails
   );
 
+  const { cartItems, totalCartCost } = useSelector(
+    (state: RootState) => state.cart
+  );
+
+  const { isAuthenticated } = useSelector((state: RootState) => state.login);
+
   const [ratings, setRatings] = useState(0);
 
   const navigate = useNavigate();
@@ -72,7 +79,7 @@ export default function ProductDetailsPage() {
     dispatch(
       updateCart({
         cost: product?.price,
-        description: product?.description,
+        stock: product?.stock,
         img: product?.image?.[0],
         productId: product?._id,
         quantity: cartAddCount,
@@ -90,18 +97,19 @@ export default function ProductDetailsPage() {
       dispatch(getProductDetails({ productId: id, navigation: navigate }));
     }
   }, [id, dispatch, , error, bottomAlert]);
+
   const isCartItemFound = async () => {
     if (product?._id) {
       const cartItems = JSON.parse(`${localStorage.getItem("cartItems")}`);
       if (cartItems) {
-        const productFound: payloadType = cartItems.find(
+        const productFound: payloadType = cartItems?.find(
           (productItem: payloadType) => {
-            return productItem.productId === product._id;
+            return productItem?.productId === id;
           }
         );
+
         if (productFound) {
-          console.log(productFound);
-          setCartCount(productFound.quantity);
+          setCartCount(productFound?.quantity);
         }
       }
     }
@@ -114,6 +122,10 @@ export default function ProductDetailsPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (id) isCartItemFound();
+  }, [id]);
 
   return loading ? (
     <>
@@ -162,21 +174,23 @@ export default function ProductDetailsPage() {
             <div>
               <h1>&#8377;{product?.price} </h1>
             </div>
-            <div className="block-3-1">
-              <span className="block-3-1-1">
-                <button onClick={incrementCartProduct}>-</button>
-                <input
-                  type="number"
-                  value={cartAddCount}
-                  readOnly={true}
-                  onChange={() => {}}
-                ></input>
-                <button onClick={decrementCartProduct}>+</button>
-              </span>
-              <span className="block-3-1-2">
-                <button onClick={handleOnAddToCart}>Add to Cart</button>
-              </span>
-            </div>
+            {isAuthenticated && (
+              <div className="block-3-1">
+                <span className="block-3-1-1">
+                  <button onClick={incrementCartProduct}>-</button>
+                  <input
+                    type="number"
+                    value={cartAddCount}
+                    readOnly={true}
+                    onChange={() => {}}
+                  ></input>
+                  <button onClick={decrementCartProduct}>+</button>
+                </span>
+                <span className="block-3-1-2">
+                  <button onClick={handleOnAddToCart}>Add to Cart</button>
+                </span>
+              </div>
+            )}
           </div>
           <div className="block-4">
             Status :

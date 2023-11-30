@@ -1,11 +1,13 @@
+.container {
+  min-height: 100vh;
+}
 .productContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 5vmax 0vmax 1vmax 18vmax;
-  /* min-height: 50dvh; */
-  min-height: 100vh;
   margin-top: 2vmax;
+  height: fit-content;
 }
 .filters {
   width: 20vmax;

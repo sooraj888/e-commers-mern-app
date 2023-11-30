@@ -78,16 +78,16 @@
   background-color: rgb(255, 255, 255);
 }
 .block-3-1-1 > button {
-  background: rgb(97, 95, 95);
-  width: 1.8vmax;
+  background: rgb(233, 87, 24);
+  width: 2vmax;
   height: 2vmax;
-  color: white;
+  color: rgb(255, 255, 255);
   border-radius: 2px;
-  font-size: 1.5vmax;
+  /* font-size: 1.5vmax; */
 }
 .block-3-1-1 > button:hover {
-  background: rgb(62, 60, 60);
-  border-color: rgb(191, 183, 183);
+  background: red;
+  border-color: rgb(255, 255, 255);
 }
 .block-3-1-2 > button,
 .block-7 > button {

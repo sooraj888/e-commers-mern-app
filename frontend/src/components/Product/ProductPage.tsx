@@ -143,7 +143,7 @@ const ProductPage = memo(() => {
   }, [priceRange]);
 
   return (
-    <Fragment>
+    <div className={Styles.container}>
       <Title>Products</Title>
       {loading ? (
         <Loader />
@@ -154,6 +154,7 @@ const ProductPage = memo(() => {
           })}
         </div>
       )}
+
       <div className={Styles.filters}>
         <button
           className={Styles.filterRemove}
@@ -212,7 +213,7 @@ const ProductPage = memo(() => {
           pageLinkClassName="numberButton"
         />
       )}
-    </Fragment>
+    </div>
   );
 });
 

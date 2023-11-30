@@ -7,7 +7,12 @@ import Styles from "./CartPage.module.css";
 import { useAlert } from "react-alert";
 import { MdRemoveShoppingCart } from "react-icons/md";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { payloadType } from "../../redux/cart/cart";
+import {
+  decrementSelectedCartItem,
+  incrementSelectedCartItem,
+  payloadType,
+  removeCartItem,
+} from "../../redux/cart/cart";
 import styled from "@emotion/styled";
 
 export default function CartPage() {
@@ -27,6 +32,18 @@ export default function CartPage() {
     (state: RootState) => state.cart
   );
 
+  const incrementCartProduct = (productId: string) => {
+    // if()
+    dispatch(incrementSelectedCartItem({ productId, bottomAlert }));
+  };
+  const decrementCartProduct = (productId: string) => {
+    dispatch(decrementSelectedCartItem({ productId }));
+  };
+
+  const onClickRemoveCartItem = (productId: string) => {
+    dispatch(removeCartItem({ productId }));
+  };
+
   return (
     <div className={Styles.container}>
       {loading ? (
@@ -44,9 +61,12 @@ export default function CartPage() {
                       <img src={items.img?.url} alt={items.name}></img>
                       <div className={Styles.cartB_0_1}>
                         <h2>{items.name}</h2>
-                        <h6>
-                          {"Product ID : "} #{items.productId}
-                        </h6>
+                        <h6>#{items.productId}</h6>
+                        <span
+                          onClick={() => onClickRemoveCartItem(items.productId)}
+                        >
+                          Remove
+                        </span>
                       </div>
                     </div>
                     <div className={Styles.cartB_1}>
@@ -56,7 +76,28 @@ export default function CartPage() {
                       </div>
                       <div className={Styles.cartB_1_2}>
                         <h2>Quantity</h2>
-                        <h3>{items.quantity}</h3>
+                        <span className="block-3-1-1">
+                          <button
+                            onClick={() =>
+                              decrementCartProduct(items.productId)
+                            }
+                          >
+                            -
+                          </button>
+                          <input
+                            type="number"
+                            value={items.quantity}
+                            readOnly={true}
+                            onChange={() => {}}
+                          ></input>
+                          <button
+                            onClick={() =>
+                              incrementCartProduct(items.productId)
+                            }
+                          >
+                            +
+                          </button>
+                        </span>
                       </div>
                       <div className={Styles.cartB_1_3}>
                         <h2>Total Price</h2>
@@ -66,6 +107,10 @@ export default function CartPage() {
                   </div>
                 );
               })}
+
+              <div className={Styles.total}>
+                Total <pre>{`          ${totalCartCost}`}</pre>
+              </div>
             </div>
           ) : (
             <div className={Styles.cartZero}>
