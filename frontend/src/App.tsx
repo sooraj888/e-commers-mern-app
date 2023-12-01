@@ -21,6 +21,7 @@ import UpdatePassword from "./components/Auth/UpdatePassword";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import PasswordReset from "./components/Auth/PasswordReset";
 import CartPage from "./components/Auth/CartPage";
+import ShippingPage from "./components/Auth/ShippingPage";
 
 export default function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -61,6 +62,7 @@ export default function App() {
         <Route path="/editProfile" Component={EditProfile} />
         <Route path="/updatePassword" Component={UpdatePassword} />
         <Route path="/myCart" Component={CartPage} />
+        <Route path="/shipping" Component={ShippingPage} />
 
         <Route path="*" Component={() => <>Page Not found</>}></Route>
       </Routes>

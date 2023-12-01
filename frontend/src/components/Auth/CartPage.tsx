@@ -43,6 +43,9 @@ export default function CartPage() {
   const onClickRemoveCartItem = (productId: string) => {
     dispatch(removeCartItem({ productId }));
   };
+  const checkoutHandler = () => {
+    navigate("/login?redirect=shipping");
+  };
 
   return (
     <div className={Styles.container}>
@@ -111,6 +114,9 @@ export default function CartPage() {
               <div className={Styles.total}>
                 Total <pre>{`          ${totalCartCost}`}</pre>
               </div>
+              <button onClick={checkoutHandler} className={Styles.checkoutBtn}>
+                checkout
+              </button>
             </div>
           ) : (
             <div className={Styles.cartZero}>

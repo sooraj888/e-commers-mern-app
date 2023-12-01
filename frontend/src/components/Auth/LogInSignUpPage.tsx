@@ -3,7 +3,7 @@ import "./LogInSignUpPage.css";
 import { BiSearch, BiSolidLock } from "react-icons/bi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEditable } from "@chakra-ui/react";
 import { callLoginApi, callSignUpApi } from "../../redux/user/loginSlice";
 import { useDispatch } from "react-redux";
@@ -110,11 +110,14 @@ export default function LogInSignUpPage() {
     }
   }, [isLoginSelected]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const redirectParam = searchParams.get("redirect");
+  const redirect = redirectParam ? `/${redirectParam}` : "/profile";
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      navigate(redirect);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, redirect]);
 
   useEffect(() => {
     if (error) {
@@ -125,9 +128,6 @@ export default function LogInSignUpPage() {
     isFirstTime = false;
   }, [error]);
 
-  // useEffect(() => {
-  //   console.log(signUpData.pic);
-  // }, [signUpData.pic]);
   return (
     <div className="authContainer">
       {loading && (

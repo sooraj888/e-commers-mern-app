@@ -70,7 +70,8 @@ form > div > svg {
   color: gray;
   transform: translateX(1vmax);
 }
-form > div > input {
+form > div > input,
+form > div > select {
   width: 100%;
   padding: 0.8vmax 0px;
   padding-left: 4vmax;

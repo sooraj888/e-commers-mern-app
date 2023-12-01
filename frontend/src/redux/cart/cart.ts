@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { CancelTokenSource } from "axios";
 import { CancelToken } from "axios";
+import { type } from "os";
 import { AlertContainer } from "react-alert";
 var source = axios.CancelToken.source();
 export type payloadType = {
@@ -16,6 +17,24 @@ export type addRemoveCartType = {
   productId: string;
   bottomAlert?: AlertContainer;
 };
+export type ShippingInfoType = {
+  shippingInfo: {
+    country: string;
+    state: string;
+    address: string;
+    city: string;
+    phoneNo: string;
+    pinCode: string;
+  };
+};
+const initialShippingType = {
+  country: "",
+  state: "",
+  city: "",
+  address: "",
+  phoneNo: "",
+  pinCode: "",
+};
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -23,6 +42,9 @@ export const cartSlice = createSlice({
       ? [...JSON?.parse(`${localStorage.getItem("cartItems")}`)]
       : [],
     totalCartCost: localStorage.getItem("totalCartCost") || 0,
+    shippingInfo: JSON?.parse(`${localStorage.getItem("shippingInfo")}`)
+      ? JSON?.parse(`${localStorage.getItem("shippingInfo")}`)
+      : { ...initialShippingType },
   },
   reducers: {
     updateCart: (state, { payload }: PayloadAction<payloadType>) => {
@@ -136,9 +158,15 @@ export const cartSlice = createSlice({
       try {
         localStorage.removeItem("totalCartCost");
         localStorage.removeItem("cartItems");
+        localStorage.removeItem("shippingInfo");
       } catch (e) {}
       state.cartItems = [];
       state.totalCartCost = 0;
+      state.shippingInfo = { ...initialShippingType };
+    },
+    addShippingInfo: (state, { payload }: PayloadAction<ShippingInfoType>) => {
+      state.shippingInfo = payload.shippingInfo;
+      localStorage.setItem("shippingInfo", JSON.stringify(state?.shippingInfo));
     },
   },
 });

@@ -16,6 +16,7 @@
     "@types/react": "^18.2.30",
     "@types/react-dom": "^18.2.14",
     "axios": "^1.5.1",
+    "country-state-city": "^3.2.1",
     "framer-motion": "^10.16.4",
     "overlay-navbar": "^1.2.3",
     "react": "^18.2.0",

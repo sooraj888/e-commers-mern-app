@@ -140,7 +140,7 @@ export default function ProductDetailsPage() {
           <Carousel {...carouselOptions}>
             {product?.image?.map((image: any, index: number) => {
               return (
-                <div className="productImage" key={image?._id || index}>
+                <div className="" key={image?._id || index}>
                   <img alt={`image ${index} slide`} src={image?.url} />
                   {/* <p className="legend">{index + 1}</p> */}
                 </div>

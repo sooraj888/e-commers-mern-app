@@ -3,6 +3,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 90vw;
+  margin: auto;
 }
 .cart > h1 {
   padding-top: 5vmax;
@@ -52,11 +54,10 @@
   flex: 1;
 }
 .total {
-  width: 90vw;
   display: flex;
   justify-content: flex-end;
-  padding-right: 5vmax;
-  border-top: 3px solid orangered;
+  align-self: flex-end;
+  border-top: 5px solid orangered;
   padding-top: 1vmax;
   font-size: 1.6vmax;
   color: orange;
@@ -80,7 +81,14 @@
   justify-content: center;
   align-items: center;
 }
-
+.checkoutBtn {
+  align-self: flex-end;
+  background-color: orange;
+  padding: 1vmax 3vmax;
+  margin: 2vmax 0px;
+  border-radius: 30px;
+  color: white;
+}
 @media screen and (max-width: 800px) {
   .cartContainer {
     flex-direction: column;
@@ -96,6 +104,9 @@
   }
   .cartB_0_1 {
     font-size: 1.4vmax;
+  }
+  .total {
+    font-size: 3vmax;
   }
 }
 
