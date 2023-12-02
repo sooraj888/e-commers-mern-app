@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import Styles from "./ShippingPage.module.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { ShippingInfoType } from "../../redux/cart/cart";
+import { ShippingInfoType, addUpdateShippingInfo } from "../../redux/cart/cart";
 import { Country, State } from "country-state-city";
 import { BiSolidLock } from "react-icons/bi";
 import { FaAddressCard } from "react-icons/fa";
@@ -10,6 +10,9 @@ import { FaPhone } from "react-icons/fa6";
 import { FaCity } from "react-icons/fa";
 import { TbMapPinCode } from "react-icons/tb";
 import { FaMapLocation } from "react-icons/fa6";
+import CheckoutStep from "../miscellaneous/CheckoutStep";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function ShippingPage() {
   const { isAuthenticated, loading } = useSelector((state: RootState) => {
@@ -24,14 +27,27 @@ export default function ShippingPage() {
   const [pinCode, setPinCode] = useState(shippingInfo.pinCode);
   const [address, setAddress] = useState(shippingInfo.address);
   const [country, setCountry] = useState(shippingInfo.country);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert("submited");
+    if (phoneNo.length < 10) {
+      alert("Phone Number Should be 10 digit");
+      return;
+    }
+    dispatch(
+      addUpdateShippingInfo({
+        shippingInfo: { address, city, country, phoneNo, pinCode, state },
+      })
+    );
+    navigate("/order/confirm");
   };
+
   return (
     <Fragment>
       {isAuthenticated ? (
         <div className={Styles.container}>
+          <CheckoutStep value={0} />
           <div className={Styles.containerCard}>
             <h1>Form </h1>
             <form className={Styles.formCard} onSubmit={onSubmit}>
@@ -50,7 +66,7 @@ export default function ShippingPage() {
               <div>
                 <FaPhone size={"1.5vmax"} />
                 <input
-                  type="input"
+                  type="text"
                   required
                   value={phoneNo}
                   placeholder={"Phone Number"}

@@ -164,7 +164,10 @@ export const cartSlice = createSlice({
       state.totalCartCost = 0;
       state.shippingInfo = { ...initialShippingType };
     },
-    addShippingInfo: (state, { payload }: PayloadAction<ShippingInfoType>) => {
+    addUpdateShippingInfo: (
+      state,
+      { payload }: PayloadAction<ShippingInfoType>
+    ) => {
       state.shippingInfo = payload.shippingInfo;
       localStorage.setItem("shippingInfo", JSON.stringify(state?.shippingInfo));
     },
@@ -177,6 +180,7 @@ export const {
   incrementSelectedCartItem,
   clearCart,
   removeCartItem,
+  addUpdateShippingInfo,
 } = cartSlice.actions;
 const cartReducer = cartSlice.reducer;
 export default cartReducer;

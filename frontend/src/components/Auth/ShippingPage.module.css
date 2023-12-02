@@ -1,14 +1,19 @@
 .container {
+  padding-top: 6vmax;
   width: 100vw;
-  height: 100vh;
-  position: fixed;
+  min-height: 100vh;
+  /* position: fixed; */
+  padding-bottom: 10vmax;
   background-color: rgb(202, 198, 198);
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   display: flex;
+  flex-direction: column;
+  overflow: scroll;
 }
 .containerCard {
   width: 30vw;
+  height: auto;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -17,6 +22,8 @@
 }
 .formCard {
   width: 90%;
+  height: auto;
+  overflow: scroll;
 }
 
 .formCard > div > input {
@@ -25,6 +32,10 @@
 }
 
 @media screen and (max-width: 600px) {
+  .container {
+    padding-top: 10vmax;
+  }
+
   .containerCard {
     width: 90vw;
   }

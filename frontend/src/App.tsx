@@ -22,6 +22,8 @@ import ForgotPassword from "./components/Auth/ForgotPassword";
 import PasswordReset from "./components/Auth/PasswordReset";
 import CartPage from "./components/Auth/CartPage";
 import ShippingPage from "./components/Auth/ShippingPage";
+import CheckProduct from "./components/Auth/CheckProduct";
+import CheckoutPayment from "./components/Auth/CheckoutPayment";
 
 export default function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -56,13 +58,15 @@ export default function App() {
         <Route path="/login" Component={LogInSignUpPage} />
         <Route path="/forgotPassword" Component={ForgotPassword} />
         <Route path="/passwordReset/:id" Component={PasswordReset} />
+        <Route path="/shipping" Component={ShippingPage} />
+        <Route path="/order/confirm" Component={CheckProduct} />
+        <Route path="/order/checkoutPayment" Component={CheckoutPayment} />
 
         {/*UnAuthenticated Routes */}
         <Route path="/profile" Component={Profile} />
         <Route path="/editProfile" Component={EditProfile} />
         <Route path="/updatePassword" Component={UpdatePassword} />
         <Route path="/myCart" Component={CartPage} />
-        <Route path="/shipping" Component={ShippingPage} />
 
         <Route path="*" Component={() => <>Page Not found</>}></Route>
       </Routes>
