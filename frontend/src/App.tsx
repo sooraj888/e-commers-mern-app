@@ -20,10 +20,10 @@ import EditProfile from "./components/Auth/EditProfile";
 import UpdatePassword from "./components/Auth/UpdatePassword";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import PasswordReset from "./components/Auth/PasswordReset";
-import CartPage from "./components/Auth/CartPage";
-import ShippingPage from "./components/Auth/ShippingPage";
-import CheckProduct from "./components/Auth/CheckProduct";
-import CheckoutPayment from "./components/Auth/CheckoutPayment";
+import CartPage from "./components/Order/CartPage";
+import ShippingPage from "./components/Order/ShippingPage";
+import CheckProduct from "./components/Order/ConfirmOrder";
+import CheckoutPayment from "./components/Order/CheckoutPayment";
 
 export default function App() {
   const dispatch = useDispatch<AppDispatch>();

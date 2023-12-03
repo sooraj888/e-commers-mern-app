@@ -133,7 +133,7 @@ export default function ShippingPage() {
                     {State &&
                       State.getStatesOfCountry(country).map((item) => {
                         return (
-                          <option value={item.isoCode} key={item.isoCode}>
+                          <option value={item.name} key={item.isoCode}>
                             {item.name}
                           </option>
                         );
@@ -142,7 +142,7 @@ export default function ShippingPage() {
                 </div>
               )}
 
-              <button>Submit</button>
+              <button>Continue</button>
             </form>
           </div>
         </div>

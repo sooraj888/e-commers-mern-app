@@ -27,7 +27,7 @@ export type ShippingInfoType = {
     pinCode: string;
   };
 };
-const initialShippingType = {
+const initialShippingType: ShippingInfoType["shippingInfo"] = {
   country: "",
   state: "",
   city: "",
@@ -35,16 +35,20 @@ const initialShippingType = {
   phoneNo: "",
   pinCode: "",
 };
+
+const initialShippingTypeLocalStore: ShippingInfoType["shippingInfo"] =
+  JSON?.parse(`${localStorage.getItem("shippingInfo")}`)
+    ? JSON?.parse(`${localStorage.getItem("shippingInfo")}`)
+    : { ...initialShippingType };
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cartItems: JSON?.parse(`${localStorage.getItem("cartItems")}`)
       ? [...JSON?.parse(`${localStorage.getItem("cartItems")}`)]
       : [],
-    totalCartCost: localStorage.getItem("totalCartCost") || 0,
-    shippingInfo: JSON?.parse(`${localStorage.getItem("shippingInfo")}`)
-      ? JSON?.parse(`${localStorage.getItem("shippingInfo")}`)
-      : { ...initialShippingType },
+    totalCartCost: Number(localStorage.getItem("totalCartCost")) || 0,
+    shippingInfo: initialShippingTypeLocalStore,
   },
   reducers: {
     updateCart: (state, { payload }: PayloadAction<payloadType>) => {

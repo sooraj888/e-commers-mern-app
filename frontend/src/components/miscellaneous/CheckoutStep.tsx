@@ -26,7 +26,7 @@ const steps = [
     path: "/shipping",
   },
   {
-    title: "Products",
+    title: "Confirm",
     // description: "Date & Time",
     icon: <MdLibraryAddCheck />,
     path: "/order/confirm",

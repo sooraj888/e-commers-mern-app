@@ -2,10 +2,6 @@
   padding-top: 6vmax;
   width: 100vw;
   min-height: 100vh;
-  /* position: fixed; */
-  padding-bottom: 10vmax;
-  background-color: rgb(202, 198, 198);
-  /* justify-content: center; */
   align-items: center;
   display: flex;
   flex-direction: column;
