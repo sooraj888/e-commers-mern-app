@@ -24,6 +24,7 @@ import CartPage from "./components/Order/CartPage";
 import ShippingPage from "./components/Order/ShippingPage";
 import CheckProduct from "./components/Order/ConfirmOrder";
 import CheckoutPayment from "./components/Order/CheckoutPayment";
+import PaymentSuccess from "./components/Order/PaymentSuccess";
 
 export default function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -61,6 +62,7 @@ export default function App() {
         <Route path="/shipping" Component={ShippingPage} />
         <Route path="/order/confirm" Component={CheckProduct} />
         <Route path="/order/checkoutPayment" Component={CheckoutPayment} />
+        <Route path="/payment/success" Component={PaymentSuccess} />
 
         {/*UnAuthenticated Routes */}
         <Route path="/profile" Component={Profile} />

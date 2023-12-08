@@ -82,6 +82,7 @@ export const cartSlice = createSlice({
       });
       state.totalCartCost = cartTotalPrice;
       localStorage.setItem("totalCartCost", `${cartTotalPrice}`);
+      sessionStorage.removeItem("order");
       localStorage.setItem("cartItems", JSON.stringify(state?.cartItems));
     },
     decrementSelectedCartItem: (
@@ -112,6 +113,7 @@ export const cartSlice = createSlice({
       state.totalCartCost = cartTotalPrice;
       localStorage.setItem("totalCartCost", `${cartTotalPrice}`);
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      sessionStorage.removeItem("order");
     },
     incrementSelectedCartItem: (
       state,
@@ -143,6 +145,7 @@ export const cartSlice = createSlice({
       });
       state.totalCartCost = cartTotalPrice;
       localStorage.setItem("totalCartCost", `${cartTotalPrice}`);
+      sessionStorage.removeItem("order");
       localStorage.setItem("cartItems", JSON.stringify(state?.cartItems));
     },
     removeCartItem: (state, { payload }: PayloadAction<addRemoveCartType>) => {
@@ -156,17 +159,19 @@ export const cartSlice = createSlice({
       });
       state.totalCartCost = cartTotalPrice;
       localStorage.setItem("totalCartCost", `${cartTotalPrice}`);
+      sessionStorage.removeItem("order");
       localStorage.setItem("cartItems", JSON.stringify(state?.cartItems));
     },
     clearCart: (state) => {
-      try {
-        localStorage.removeItem("totalCartCost");
-        localStorage.removeItem("cartItems");
-        localStorage.removeItem("shippingInfo");
-      } catch (e) {}
       state.cartItems = [];
       state.totalCartCost = 0;
       state.shippingInfo = { ...initialShippingType };
+      try {
+        localStorage.removeItem("totalCartCost");
+        sessionStorage.removeItem("order");
+        localStorage.removeItem("cartItems");
+        localStorage.removeItem("shippingInfo");
+      } catch (e) {}
     },
     addUpdateShippingInfo: (
       state,

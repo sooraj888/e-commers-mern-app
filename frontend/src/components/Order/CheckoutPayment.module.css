@@ -1,0 +1,14 @@
+.container {
+  padding-top: 6vmax;
+  width: 100vw;
+  min-height: 100vh;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+.paymentForm {
+  margin-top: 2vmax;
+  padding: 1vmax;
+  background-color: rgb(228, 226, 226);
+}

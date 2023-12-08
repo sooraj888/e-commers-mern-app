@@ -5,6 +5,7 @@ import { RootState } from "../../redux/store";
 import CheckoutStep from "../miscellaneous/CheckoutStep";
 import { payloadType } from "../../redux/cart/cart";
 import Loader from "../layout/Loader/Loader";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckProduct() {
   const {
@@ -13,17 +14,28 @@ export default function CheckProduct() {
     loading,
   }: any = useSelector((state: RootState) => state.login);
 
+  const navigation = useNavigate();
   const { cartItems, totalCartCost, shippingInfo } = useSelector(
     (state: RootState) => state.cart
   );
 
-  const shippingCharge = totalCartCost < 500 ? 100 : 0;
+  const shippingCharge = totalCartCost == 0 ? 0 : totalCartCost < 500 ? 100 : 0;
   const tax =
     Number(totalCartCost + shippingCharge) > 1000
       ? (totalCartCost + shippingCharge) * 0.18
       : 0;
 
   const total = totalCartCost + shippingCharge + tax;
+  const handleOnProcessPayment = () => {
+    const data = {
+      subTotal: totalCartCost,
+      tax,
+      shippingCharge,
+      totalPrice: total,
+    };
+    sessionStorage.setItem("order", JSON.stringify(data));
+    navigation("/order/checkoutPayment");
+  };
 
   return (
     <Fragment>
@@ -54,7 +66,7 @@ export default function CheckProduct() {
                 <div className={Styles.cartContainer}>
                   {cartItems.map((items: payloadType) => {
                     return (
-                      <div className={Styles.cartItem}>
+                      <div className={Styles.cartItem} key={items.productId}>
                         <div>
                           <img src={items.img?.url} alt={items.name}></img>
                           <h2>{items.name}</h2>
@@ -87,6 +99,9 @@ export default function CheckProduct() {
                   <b>Total : </b> <span>&#8377;{total}</span>
                 </span>
               </div>
+              <button onClick={handleOnProcessPayment}>
+                Process To Payment
+              </button>
             </div>
           </div>
         </div>

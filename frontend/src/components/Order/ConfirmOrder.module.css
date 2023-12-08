@@ -71,6 +71,8 @@
 .block1_2 {
   flex: 1;
   padding: 1vmax;
+  display: flex;
+  flex-direction: column;
 }
 
 .block1_2 > div {
@@ -88,6 +90,18 @@
 .block1_2 > div > span {
   display: flex;
   justify-content: space-between;
+}
+
+.block1_2 > button {
+  align-self: center;
+  background-color: orangered;
+  padding: 0.8vmax 2vmax;
+  /* border-radius: 5px; */
+  color: white;
+}
+
+.block1_2 > button:hover {
+  background-color: rgb(255, 0, 0);
 }
 @media screen and (max-width: 600px) {
   .container {

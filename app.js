@@ -12,12 +12,14 @@ app.use(cookieParser());
 const product = require("./backend/routes/productRoute");
 const user = require("./backend/routes/userRoute");
 const order = require("./backend/routes/orderRoute");
+const payment = require("./backend/routes/paymentRoute");
 
 app.use(express.static(path.join(__dirname, "/frontend/build")));
 
 app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
+app.use("/api/v1", payment);
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve("frontend", "build", "index.html"));
